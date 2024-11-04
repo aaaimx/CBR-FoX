@@ -22,4 +22,13 @@ techniques = [
 p = cbr_fox_builder(techniques)
 p.fit(training_windows = training_windows,target_training_windows = target_training_windows.reshape(-1,1), forecasted_window = forecasted_window)
 p.predict(prediction = prediction,num_cases=5)
-p.plot_correlation()
+# p.plot_correlation()
+
+p.visualize_pyplot(
+    fmt = '--d',
+    scatter_params={"s": 50},
+    xtick_rotation=50,
+    title="nombre",
+    xlabel="x",
+    ylabel="y"
+)

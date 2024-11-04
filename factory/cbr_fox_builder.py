@@ -15,7 +15,6 @@ class cbr_fox_builder:
         for name in self.techniques_dict:
             self.techniques_dict[name].explain(training_windows, target_training_windows, forecasted_window, prediction, num_cases)
 
-
     def fit(self, training_windows, target_training_windows, forecasted_window):
         for name in self.techniques_dict:
             self.techniques_dict[name].fit(training_windows, target_training_windows, forecasted_window)
@@ -46,8 +45,14 @@ class cbr_fox_builder:
             xaxis_title='Time (e.g., Days)',
             yaxis_title='Value',
             showlegend=True,
-
         )
 
         # Display the plot
         fig.show()
+
+    def visualize_pyplot(self, **kwargs):
+        figs_axes = []
+        for name in self.techniques_dict:
+            figs_axes.append(self.techniques_dict[name].visualize_pyplot(**kwargs))
+
+        return figs_axes

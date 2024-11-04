@@ -74,7 +74,7 @@ class cbr_fox:
     def _retreive_original_indexes(self):
         for split in tqdm(self.concaveSegments, desc="Segmentos cóncavos"):
             self.best_windows_index.append(int(split[np.where(split == max(split[:, 1]))[0][0], 0]))
-        for split in tqdm(self.convexSegments, desc="Segmentos cóncavos"):
+        for split in tqdm(self.convexSegments, desc="Segmentos convexos"):
             self.worst_windows_index.append(int(split[np.where(split == min(split[:, 1]))[0][0], 0]))
 
     def calculate_analysis(self, indexes, input_data_dictionary):
@@ -191,6 +191,64 @@ class cbr_fox:
     #   for underlying functionality
     def visualize_correlation_per_window(self, plt_oject):
         pass
+
+    def visualize_pyplot(self, **kwargs):
+        import matplotlib.pyplot as plt
+        figs_axes = []
+        num_plots = self.input_data_dictionary["training_windows"].shape[2]
+
+        # Un plot por cada componente
+        for i in range(num_plots):
+            fig, ax = plt.subplots()
+
+            # Plot forecasted window and prediction
+            ax.plot(
+                np.arange(self.input_data_dictionary["window_len"]),
+                self.input_data_dictionary["forecasted_window"][:, i],
+                '--dk',
+                label=kwargs.get("forecast_label", "Forecasted Window")
+            )
+            ax.scatter(
+                self.input_data_dictionary["window_len"],
+                self.input_data_dictionary["prediction"][i],
+                marker='d',
+                c='#000000',
+                label=kwargs.get("prediction_label", "Prediction")
+            )
+
+            # Plot best windows
+            for index in self.best_windows_index:
+                plot_args = [
+                    np.arange(self.input_data_dictionary["window_len"]),
+                    self.input_data_dictionary["training_windows"][index, :, i]
+                ]
+                if "fmt" in kwargs:
+                    plot_args.append(kwargs["fmt"])
+                ax.plot(
+                    *plot_args,
+                    **kwargs.get("plot_params", {}),
+                    label=kwargs.get("windows_label", f"Window {index}")
+                )
+                ax.scatter(
+                    self.input_data_dictionary["window_len"],
+                    self.input_data_dictionary["target_training_windows"][index, i],
+                    **kwargs.get("scatter_params", {})
+                )
+
+            ax.set_xlim(kwargs.get("xlim"))
+            ax.set_ylim(kwargs.get("ylim"))
+            ax.set_xticks(np.arange(self.input_data_dictionary["window_len"]))
+            plt.xticks(rotation=kwargs.get("xtick_rotation", 0), ha=kwargs.get("xtick_ha", 'right'))
+            ax.set_title(kwargs.get("title", f"Plot {i + 1}"))
+            ax.set_xlabel(kwargs.get("xlabel", "Axis X"))
+            ax.set_ylabel(kwargs.get("ylabel", "Axis Y"))
+
+            if kwargs.get("legend", True):
+                ax.legend()
+
+            figs_axes.append((fig, ax))
+            fig.show()
+        return figs_axes
 
     def get_analysis_report(self):
         return self.analysisReport
