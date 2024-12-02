@@ -4,7 +4,7 @@ from custom_distance.cci_distance import cci_distance
 import numpy as np
 
 # Load the saved data
-data = np.load("variables.npz")
+data = np.load("Romania_Power_Usage_Analysis_2016_2020_CBR-FoX.npz")
 
 # Retrieve each variable
 training_windows = data['training_windows']
