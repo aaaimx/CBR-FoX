@@ -12,7 +12,7 @@ def distance_sktime_interface(input_data_dictionary, metric, kwargs={}):
                   metric, **kwargs)
          for current_window in tqdm(range(input_data_dictionary["windows_len"]), desc="Windows procesadas", position=0)
          for current_component in range(input_data_dictionary["components_len"])]
-    ).reshape(-1, input_data_dictionary["components_len"])
+    ).reshape(-1, input_data_dictionary["components_len"])# esta función solamente evalúa la cantidad de componentes que tiene el target, no las ventanas de training
 
 # TODO Mejorar la estructura de la función
 def compute_distance_interface(input_data_dictionary,
