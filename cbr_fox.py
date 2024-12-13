@@ -47,7 +47,7 @@ class cbr_fox:
         input_data_dictionary['training_windows'] = training_windows
         input_data_dictionary['target_training_windows'] = target_training_windows
         input_data_dictionary['forecasted_window'] = forecasted_window
-        input_data_dictionary['components_len'] = target_training_windows.shape[1]
+        input_data_dictionary['components_len'] = training_windows.shape[2]
         input_data_dictionary['window_len'] = training_windows.shape[1]
         input_data_dictionary['windows_len'] = len(training_windows)
 
