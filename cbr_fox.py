@@ -1,5 +1,4 @@
 import logging
-
 import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_absolute_error
@@ -232,12 +231,9 @@ class cbr_fox:
         pass
 
     def visualize_pyplot(self, **kwargs):
-        import matplotlib.pyplot as plt
         figs_axes = []
-        num_plots = self.input_data_dictionary["target_training_windows"].shape[1]
-
         # Un plot por cada componente
-        for i in range(num_plots):
+        for i in range(self.input_data_dictionary["target_training_windows"].shape[1]):
             fig, ax = plt.subplots()
 
             # Plot forecasted window and prediction
@@ -259,7 +255,9 @@ class cbr_fox:
             for index in self.best_windows_index:
                 plot_args = [
                     np.arange(self.input_data_dictionary["window_len"]),
-                    self.input_data_dictionary["training_windows"][index, :, i]
+
+                    # self.input_data_dictionary["training_windows"][index, :, i]
+                    self.records_array[self.records_array['index'] == index]
                 ]
                 if "fmt" in kwargs:
                     plot_args.append(kwargs["fmt"])
