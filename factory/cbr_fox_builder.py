@@ -1,6 +1,7 @@
 from cbr_fox import cbr_fox
 import plotly.graph_objects as go
 import numpy as np
+import utils.plot_utils as plot_utils
 class cbr_fox_builder:
     def __init__(self, techniques):
         # Store techniques as a dictionary, where the key is the technique name and the value is the cbr_fox object
@@ -51,8 +52,5 @@ class cbr_fox_builder:
         fig.show()
 
     def visualize_pyplot(self, **kwargs):
-        figs_axes = []
-        for name in self.techniques_dict:
-            figs_axes.append(self.techniques_dict[name].visualize_pyplot(**kwargs))
 
-        return figs_axes
+        return [plot_utils.visualize_pyplot(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]
