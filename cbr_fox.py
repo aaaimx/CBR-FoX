@@ -9,6 +9,8 @@ from custom_distance import sktime_interface
 from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
 # TODO Revisar si es conveniente agregar como atributo de clase a correlation_per_windows para facilitar el acceso en los métodos
 # o si por tema de memoria sería adecuado solo almacenar smoothed_correlation
 
@@ -78,94 +80,44 @@ class cbr_fox:
 
     def calculate_analysis(self, indexes, input_data_dictionary):
         return np.array([(index,
-                                        input_data_dictionary["training_windows"][index],
-                                        input_data_dictionary["target_training_windows"][index],
-                                        self.correlation_per_window[index],
-                                        mean_absolute_error(input_data_dictionary["target_training_windows"][index],
-                                                            input_data_dictionary["prediction"].reshape(-1, 1)))
-                                       for index in indexes], dtype=self.dtype)
+                          input_data_dictionary["training_windows"][index],
+                          input_data_dictionary["target_training_windows"][index],
+                          self.correlation_per_window[index],
+                          mean_absolute_error(input_data_dictionary["target_training_windows"][index],
+                                              input_data_dictionary["prediction"].reshape(-1, 1)))
+                         for index in indexes], dtype=self.dtype)
 
-
-    # def calculate_analysis_combined(self, input_data_dictionary):
-    #    return np.array([(-index,
-    #        np.mean(input_data_dictionary["training_windows"][
-    #                dic[:input_data_dictionary["num_cases"]]], axis=0),
-    #        np.mean(input_data_dictionary["target_training_windows"][
-    #                dic[:input_data_dictionary["num_cases"]]], axis=0),
-    #        np.mean(self.correlation_per_window[
-    #                dic[:input_data_dictionary["num_cases"]]]),
-    #        mean_absolute_error(
-    #            np.mean(input_data_dictionary["target_training_windows"][
-    #                    dic[:input_data_dictionary["num_cases"]]], axis=0),
-    #            input_data_dictionary["prediction"].reshape(-1, 1)
-    #        )
-    #       ) for index, dic in enumerate([self.best_windows_index,self.worst_windows_index])], dtype=self.dtype)
+    def weighted_average(values, weights):
+        weights = np.array(weights)[:, np.newaxis, np.newaxis]
+        return np.sum(values * weights, axis=0) / np.sum(weights)
 
     def calculate_analysis_combined(self, input_data_dictionary, mode):
-
-        def weighted_average(values, weights):
-            weights = np.array(weights)
-            weights = weights[:, np.newaxis, np.newaxis]
-            return np.sum(values * weights, axis=0) / np.sum(weights)
         results = []
         for index, indices in enumerate([self.best_windows_index, self.worst_windows_index]):
             selected_cases = indices[:input_data_dictionary["num_cases"]]
-
             # Promedio simple
-            simple_average = np.mean(
-                input_data_dictionary["training_windows"][selected_cases],
-                axis=0
-            )
-            # Promedio ponderado
-            weighted_average_result = weighted_average(
-                input_data_dictionary["training_windows"][selected_cases],
-                self.correlation_per_window[selected_cases]
-            )
-
-            target_average = np.mean(
-                input_data_dictionary["target_training_windows"][selected_cases],
-                axis=0
-            )
-            correlation_mean = np.mean(self.correlation_per_window[selected_cases])
-            mae = mean_absolute_error(
-                np.mean(input_data_dictionary["target_training_windows"][selected_cases], axis=0),
-                input_data_dictionary["prediction"].reshape(-1, 1)
-            )
-
             if mode == "weighted":
-                results.append((-index, weighted_average_result, target_average, correlation_mean, mae))
+                # Promedio ponderado
+                average = self.weighted_average(input_data_dictionary["training_windows"][selected_cases],
+                                                self.correlation_per_window[selected_cases])
             else:
-                results.append((-index, simple_average, target_average, correlation_mean, mae))
+                average = np.mean(input_data_dictionary["training_windows"][selected_cases], axis=0)
+
+            target_average = np.mean(input_data_dictionary["target_training_windows"][selected_cases], axis=0)
+            # self.records_array[np.isin(self.records_array["index"], selected_cases)]["target"]
+            correlation_mean = np.mean(self.correlation_per_window[selected_cases])
+
+            # se sustituye np.mean(input_data_dictionary["target_training_windows"][selected_cases], axis=0)
+            mae = mean_absolute_error(target_average, input_data_dictionary["prediction"].reshape(-1, 1))
+
+            results.append((-index, average, target_average, correlation_mean, mae))
 
         return np.array(results, dtype=self.dtype)
 
     # TODO Analizar si este método puede ser el único que permita realizar asignaciones de variable internamente
     def _compute_statistics(self, input_data_dictionary, mode):
 
-        # self.bestDic = {index: self.__correlation_per_window[index] for index in self.best_windows_index}
-        #
-        # self.worstDic = {index: self.__correlation_per_window[index] for index in self.worst_windows_index}
-        #
-        # self.bestDic = sorted(self.bestDic.items(), reverse=True, key=lambda x: x[1])
-        #
-        # self.worstDic = sorted(self.worstDic.items(), key=lambda x: x[1])
-        #
-        # self.bestDic = self.bestDic[0:input_data_dictionary['num_cases']]
-        # self.worstDic = self.worstDic[0:input_data_dictionary['num_cases']]
-        #
-        # print("Calculando MAE para cada ventana")
-        #
-        # for tupla in self.bestDic:
-        #     self.bestMAE.append(
-        #         mean_absolute_error(input_data_dictionary["target_training_windows"][tupla[0]],
-        #                             input_data_dictionary["prediction"].reshape(-1, 1)))
-        #
-        # for tupla in self.worstDic:
-        #     self.worstMAE.append(
-        #         mean_absolute_error(input_data_dictionary["target_training_windows"][tupla[0]],
-        #                             input_data_dictionary["prediction"].reshape(-1, 1)))
 
-        self.records_array_combined = self.calculate_analysis_combined(input_data_dictionary, mode)
 
         self.records_array = self.calculate_analysis(self.best_windows_index + self.worst_windows_index,
                                                      input_data_dictionary)
@@ -175,10 +127,14 @@ class cbr_fox:
 
         # Selecting just the number of elements according to num_cases variable
         # The conditional is to avoid duplicity in case records_arrays's shape is not greater than the selected num_cases
-        if (self.records_array.shape[0] > (input_data_dictionary["num_cases"]*2)):
-            self.records_array = np.concatenate((self.records_array[:input_data_dictionary["num_cases"]], self.records_array[
-                                                                                                 -input_data_dictionary[
-                                                                                                     "num_cases"]:]))
+        if (self.records_array.shape[0] > (input_data_dictionary["num_cases"] * 2)):
+            self.records_array = np.concatenate(
+                (self.records_array[:input_data_dictionary["num_cases"]], self.records_array[
+                                                                          -input_data_dictionary[
+                                                                              "num_cases"]:]))
+
+        # This line is run after to take advantage of records_array variable
+        self.records_array_combined = self.calculate_analysis_combined(input_data_dictionary, mode)
 
         print("Generando reporte de análisis")
         self.analysisReport = pd.DataFrame(data=pd.DataFrame.from_records(self.records_array))
@@ -211,81 +167,18 @@ class cbr_fox:
 
         logging.info("Analizando conjunto de datos")
         self.input_data_dictionary = self._preprocess_input_data(training_windows, target_training_windows,
-                                                                         forecasted_window)
+                                                                 forecasted_window)
         logging.info("Calculando Correlación")
         self.__correlation_per_window = self._compute_correlation(self.input_data_dictionary)
         logging.info("Computando análisis de CBR")
         self._compute_cbr_analysis(self.input_data_dictionary)
         logging.info("Análisis finalizado")
 
-
-    def predict(self,prediction, num_cases: int, mode = "simple"):
+    def predict(self, prediction, num_cases: int, mode="simple"):
         self.input_data_dictionary['prediction'] = prediction
         self.input_data_dictionary['num_cases'] = num_cases
-        #aqui
+        # aqui
         self._compute_statistics(self.input_data_dictionary, mode)
-
-    # Method to print a chart or graphic based on results stored in variables. These methods are not strictly necessary
-    #   for underlying functionality
-    def visualize_correlation_per_window(self, plt_oject):
-        pass
-
-    def visualize_pyplot(self, **kwargs):
-        figs_axes = []
-        # Un plot por cada componente
-        for i in range(self.input_data_dictionary["target_training_windows"].shape[1]):
-            fig, ax = plt.subplots()
-
-            # Plot forecasted window and prediction
-            ax.plot(
-                np.arange(self.input_data_dictionary["window_len"]),
-                self.input_data_dictionary["forecasted_window"][:, i],
-                '--dk',
-                label=kwargs.get("forecast_label", "Forecasted Window")
-            )
-            ax.scatter(
-                self.input_data_dictionary["window_len"],
-                self.input_data_dictionary["prediction"][i],
-                marker='d',
-                c='#000000',
-                label=kwargs.get("prediction_label", "Prediction")
-            )
-
-            # Plot best windows
-            for index in self.best_windows_index:
-                plot_args = [
-                    np.arange(self.input_data_dictionary["window_len"]),
-
-                    # self.input_data_dictionary["training_windows"][index, :, i]
-                    self.records_array[self.records_array['index'] == index]
-                ]
-                if "fmt" in kwargs:
-                    plot_args.append(kwargs["fmt"])
-                ax.plot(
-                    *plot_args,
-                    **kwargs.get("plot_params", {}),
-                    label=kwargs.get("windows_label", f"Window {index}")
-                )
-                ax.scatter(
-                    self.input_data_dictionary["window_len"],
-                    self.input_data_dictionary["target_training_windows"][index, i],
-                    **kwargs.get("scatter_params", {})
-                )
-
-            ax.set_xlim(kwargs.get("xlim"))
-            ax.set_ylim(kwargs.get("ylim"))
-            ax.set_xticks(np.arange(self.input_data_dictionary["window_len"]))
-            plt.xticks(rotation=kwargs.get("xtick_rotation", 0), ha=kwargs.get("xtick_ha", 'right'))
-            ax.set_title(kwargs.get("title", f"Plot {i + 1}"))
-            ax.set_xlabel(kwargs.get("xlabel", "Axis X"))
-            ax.set_ylabel(kwargs.get("ylabel", "Axis Y"))
-
-            if kwargs.get("legend", True):
-                ax.legend()
-
-            figs_axes.append((fig, ax))
-            fig.show()
-        return figs_axes
 
     def get_analysis_report(self):
         return self.analysisReport
