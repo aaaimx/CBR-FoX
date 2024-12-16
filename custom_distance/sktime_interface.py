@@ -21,9 +21,7 @@ def distance_sktime_interface(input_data_dictionary, metric, kwargs={}):
         raise ValueError("The computation returned NaN values, which is not valid for further calculations.")
 
     return result
-# esta función solamente evalúa la cantidad de componentes que tiene el target, no las ventanas de training
 
-# TODO Mejorar la estructura de la función
 def compute_distance_interface(input_data_dictionary,
                                metric: Union[str, Callable[[np.ndarray, np.ndarray], float]],
                                kwargs):
@@ -44,12 +42,5 @@ def compute_distance_interface(input_data_dictionary,
     except Exception as custom_error:
         logging.error("Custom callable execution failed", exc_info=True)
         raise
-
-
-# def distance_process(evaluate_component, target_component, metric, **kwargs):
-#     if metric == "pearson":
-#         return np.corrcoef(evaluate_component, target_component)[0][1]
-#     else:
-#         return distance(evaluate_component, target_component, metric, **kwargs)
 
 

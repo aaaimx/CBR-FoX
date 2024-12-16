@@ -4,7 +4,6 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 def cci_distance(input_data_dictionary, punishedSumFactor):
-    # print("Calculando correlación de Pearson")
     logging.info("Aplicando Correlación de Pearson")
     pearsonCorrelation = sktime_interface.distance_sktime_interface(input_data_dictionary, sktime_interface.pearson)
 

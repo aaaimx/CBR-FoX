@@ -32,25 +32,6 @@ class cbr_fox_builder:
         else:
             raise KeyError(f"Technique '{technique_name}' not found.")
 
-    #TODO Posiblemente hacer que el usuario sea quien envíe el objeto figure como argumento en la función para mayor personalziación
-    def plot_correlation(self):
-        # Create a Plotly figure
-        fig = go.Figure()
-        for name in self.techniques_dict:
-            # Add a time series line trace
-            fig.add_trace(go.Scatter(x=np.arange(len(self.techniques_dict[name].smoothed_correlation)), y=self.techniques_dict[name].smoothed_correlation, mode='lines+markers', name='Time Series'))
-
-        # Add titles and labels
-        fig.update_layout(
-            title='Time Series Data',
-            xaxis_title='Time (e.g., Days)',
-            yaxis_title='Value',
-            showlegend=True,
-        )
-
-        # Display the plot
-        fig.show()
-
     def visualize_pyplot(self, **kwargs):
 
         return [plot_utils.visualize_pyplot(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]

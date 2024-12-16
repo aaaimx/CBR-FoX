@@ -10,19 +10,13 @@ from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-
-# TODO Revisar si es conveniente agregar como atributo de clase a correlation_per_windows para facilitar el acceso en los métodos
-# o si por tema de memoria sería adecuado solo almacenar smoothed_correlation
-
 class cbr_fox:
     def __init__(self, metric: str or callable = "dtw", smoothness_factor: float = .2, kwargs: dict = {}):
         # Variables for setting
-
         self.metric = metric
         self.smoothness_factor = smoothness_factor
         self.kwargs = kwargs
         # Variables for results
-        # self.outputComponentsLen = len(outputNames)
         self.smoothed_correlation = None
         self.analysisReport = None
         self.analysisReport_combined = None
@@ -62,7 +56,6 @@ class cbr_fox:
         return signal.argrelextrema(self.smoothed_correlation, np.less)[0], \
             signal.argrelextrema(self.smoothed_correlation, np.greater)[0]
 
-    # TODO Analizar si conviene hacer que retorne los valores y luego asigne, con único fin de seguir el estándar
     def _retreive_concave_convex_segments(self, windows_len):
         self.concaveSegments = np.split(
             np.transpose(np.array((np.arange(windows_len), self.smoothed_correlation))),
@@ -71,7 +64,6 @@ class cbr_fox:
             np.transpose(np.array((np.arange(windows_len), self.smoothed_correlation))),
             self.peak_index)
 
-    # TODO Analizar si conviene hacer que retorne los valores y luego asigne, con único fin de seguir el estándar
     def _retreive_original_indexes(self):
         for split in tqdm(self.concaveSegments, desc="Segmentos cóncavos"):
             self.best_windows_index.append(int(split[np.where(split == max(split[:, 1]))[0][0], 0]))
@@ -104,7 +96,6 @@ class cbr_fox:
                 average = np.mean(input_data_dictionary["training_windows"][selected_cases], axis=0)
 
             target_average = np.mean(input_data_dictionary["target_training_windows"][selected_cases], axis=0)
-            # self.records_array[np.isin(self.records_array["index"], selected_cases)]["target"]
             correlation_mean = np.mean(self.correlation_per_window[selected_cases])
 
             # se sustituye np.mean(input_data_dictionary["target_training_windows"][selected_cases], axis=0)
@@ -114,7 +105,6 @@ class cbr_fox:
 
         return np.array(results, dtype=self.dtype)
 
-    # TODO Analizar si este método puede ser el único que permita realizar asignaciones de variable internamente
     def _compute_statistics(self, input_data_dictionary, mode):
 
 
@@ -136,7 +126,7 @@ class cbr_fox:
         # This line is run after to take advantage of records_array variable
         self.records_array_combined = self.calculate_analysis_combined(input_data_dictionary, mode)
 
-        print("Generando reporte de análisis")
+        logging.info("Generando reporte de análisis")
         self.analysisReport = pd.DataFrame(data=pd.DataFrame.from_records(self.records_array))
         self.analysisReport_combined = pd.DataFrame(data=pd.DataFrame.from_records(self.records_array_combined))
 
