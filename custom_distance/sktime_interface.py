@@ -4,6 +4,7 @@ from sktime.distances import distance
 from typing import Callable, Union
 from tqdm import tqdm
 def pearson(x, y):
+    """Custom Pearson correlation function to return the first value from the numpy's Pearson correlation function."""
     return np.corrcoef(x, y)[0][1]
 
 def distance_sktime_interface(input_data_dictionary, metric, kwargs={}):
