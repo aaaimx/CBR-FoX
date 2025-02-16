@@ -15,11 +15,7 @@ def distance_sktime_interface(input_data_dictionary, metric, kwargs={}):
          for current_window in tqdm(range(input_data_dictionary["windows_len"]), desc="Windows procesadas", position=0)
          for current_component in range(input_data_dictionary["components_len"])]
     ).reshape(-1, input_data_dictionary["components_len"])
-
-    # Validating any NaN value. Whether there is any NaN value, the program stops
-    if np.isnan(result).any():
-        logging.error("The result of the metric computation is NaN.")
-        raise ValueError("The computation returned NaN values, which is not valid for further calculations.")
+    result = np.nan_to_num(result, nan=0)
 
     return result
 

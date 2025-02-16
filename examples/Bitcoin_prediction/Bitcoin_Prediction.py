@@ -23,14 +23,15 @@ techniques = [
 ]
 p = cbr_fox_builder(techniques)
 p.fit(training_windows = training_windows,target_training_windows = target_training_windows, forecasted_window = forecasted_window)
-p.predict(prediction = prediction,num_cases=3)
+p.predict(prediction = prediction,num_cases=5)
 # p.plot_correlation()
 
 p.visualize_pyplot(
+    n_windows = 5,
     fmt = '--d',
     scatter_params={"s": 50},
     xtick_rotation=50,
-    title="nombre",
+    title="Title",
     xlabel="x",
     ylabel="y"
 )

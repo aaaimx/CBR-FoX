@@ -3,8 +3,9 @@ import numpy as np
 def visualize_correlation_per_window(self, plt_oject, input_data_dictionary):
     pass
 
-def visualize_pyplot(self, cbr_fox_instance, **kwargs):
+def visualize_pyplot(cbr_fox_instance, **kwargs):
     figs_axes = []
+    n_windows = kwargs.get("n_windows", len(cbr_fox_instance.best_windows_index))
     # Un plot por cada componente
     for i in range(cbr_fox_instance.input_data_dictionary["target_training_windows"].shape[1]):
         fig, ax = plt.subplots()
@@ -25,12 +26,11 @@ def visualize_pyplot(self, cbr_fox_instance, **kwargs):
         )
 
         # Plot best windows
-        for index in self.best_windows_index:
+        for index in cbr_fox_instance.best_windows_index[:n_windows]:
+
             plot_args = [
                 np.arange(cbr_fox_instance.input_data_dictionary["window_len"]),
-
-                # input_data_dictionary["training_windows"][index, :, i]
-                cbr_fox_instance.records_array[cbr_fox_instance.records_array['index'] == index]
+                cbr_fox_instance.input_data_dictionary["training_windows"][index, :, i]
             ]
             if "fmt" in kwargs:
                 plot_args.append(kwargs["fmt"])
