@@ -1,5 +1,5 @@
 import numpy as np
-from custom_distance import sktime_interface
+from src.adapters import sktime_interface
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

@@ -2,10 +2,9 @@ import logging
 import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_absolute_error
-from sktime.distances import distance
 from scipy import signal
 from statsmodels.nonparametric.smoothers_lowess import lowess
-from custom_distance import sktime_interface
+from adapters import sktime_interface
 from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -15,18 +14,33 @@ class cbr_fox:
     """
     Core class to perform calculations and analysis at technique-level depth.
 
-    This clas is used to preprocess the provided input data for performing correlation and find the best cases. Its}
+    This class is used to preprocess the provided input data for performing correlation and find the best cases. Its}
     functionality follows classic AI library guidelines and standards such as scikit-learn and keras.
 
     Parameters
     -------
-
+    metric : str or callable, optional
+        The metric to use for correlation (default is "dtw").
+    smoothness_factor : float, optional
+        The smoothness factor for preprocessing (default is 0.2).
+    kwargs : dict, optional
+        Additional keyword arguments for customization.
 
     Methods
     -------
+    __init__(self, metric, smoothness_factor, kwargs)
+        Initializes the cbr_fox class with specified parameters.
     """
 
     def __init__(self, metric: str or callable = "dtw", smoothness_factor: float = .2, kwargs: dict = {}):
+        """
+        Initializes the cbr_fox class with specified parameters.
+        Parameters
+        ----------
+        metric
+        smoothness_factor
+        kwargs
+        """
         # Variables for setting
         self.metric = metric
         self.smoothness_factor = smoothness_factor

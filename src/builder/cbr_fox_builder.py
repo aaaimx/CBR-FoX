@@ -1,7 +1,4 @@
-from cbr_fox import cbr_fox
-import plotly.graph_objects as go
-import numpy as np
-import utils.plot_utils as plot_utils
+import src.utils.plot_utils as plot_utils
 class cbr_fox_builder:
     def __init__(self, techniques):
         # Store techniques as a dictionary, where the key is the technique name and the value is the cbr_fox object

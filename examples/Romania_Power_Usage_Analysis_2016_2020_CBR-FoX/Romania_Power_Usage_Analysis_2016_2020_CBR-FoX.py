@@ -1,6 +1,6 @@
-import cbr_fox
-from factory.cbr_fox_builder import cbr_fox_builder
-from custom_distance.cci_distance import cci_distance
+from src.core import cbr_fox
+from src.builder import cbr_fox_builder
+from src.custom_distance.cci_distance import cci_distance
 import numpy as np
 
 # Load the saved data
@@ -16,8 +16,8 @@ windowLen = data['windowLen'].item()
 prediction = data['prediction']
 
 techniques = [
-    cbr_fox.cbr_fox(metric=cci_distance,kwargs={"punishedSumFactor":.5}),
-    cbr_fox.cbr_fox(metric=cci_distance,kwargs={"punishedSumFactor":.7})
+    cbr_fox.cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor":.5}),
+    cbr_fox.cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor":.7})
 ]
 p = cbr_fox_builder(techniques)
 p.fit(training_windows = training_windows,target_training_windows = target_training_windows.reshape(-1,1), forecasted_window = forecasted_window)
