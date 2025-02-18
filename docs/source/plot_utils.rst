@@ -1,6 +1,6 @@
 plot_utils
 ========
 
-.. automodule:: utils.plot_utils
+.. automodule:: utils
    :members:
    :undoc-members:

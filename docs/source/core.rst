@@ -1,7 +1,7 @@
 Core
 ========
 
-.. automodule:: core.cbr_fox
+.. automodule:: core
    :members:
    :undoc-members:
 

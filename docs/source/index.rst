@@ -18,4 +18,5 @@ documentation for details.
 
     adapters
     plot_utils
+    custom_distance
     core

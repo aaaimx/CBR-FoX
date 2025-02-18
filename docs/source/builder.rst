@@ -1,6 +1,6 @@
 Builder
 ========
 
-.. automodule:: builder.cbr_fox_builder
+.. automodule:: builder
    :members:
    :undoc-members:

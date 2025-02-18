@@ -1,6 +1,6 @@
 Adapters
 ========
 
-.. automodule:: adapters.sktime_interface
+.. automodule:: adapters
    :members:
    :undoc-members:
