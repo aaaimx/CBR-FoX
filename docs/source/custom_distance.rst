@@ -1,5 +1,5 @@
 Custom_distance
-========
+===============
 
 .. automodule:: custom_distance
    :members:

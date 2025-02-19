@@ -1,5 +1,5 @@
 plot_utils
-========
+==========
 
 .. automodule:: utils
    :members:
