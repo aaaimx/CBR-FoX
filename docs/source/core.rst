@@ -1,7 +1,7 @@
 Core
 ========
 
-.. automodule:: core
+.. automodule:: core.cbr_fox
    :members:
    :undoc-members:
    :show-inheritance:
