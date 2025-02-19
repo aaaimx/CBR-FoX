@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.metrics import mean_absolute_error
 from scipy import signal
 from statsmodels.nonparametric.smoothers_lowess import lowess
-from adapters import sktime_interface
+from src.adapters import sktime_interface
 from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

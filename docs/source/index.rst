@@ -13,7 +13,8 @@ CBR-FoX Documentation
 
 
     adapters
-    plot_utils
-    custom_distance
-    core
     builder
+    custom_distance
+    plot_utils
+    core
+
