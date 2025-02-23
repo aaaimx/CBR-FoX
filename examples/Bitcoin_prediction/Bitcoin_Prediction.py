@@ -22,11 +22,12 @@ techniques = [
     #cbr_fox.cbr_fox(metric="twe")
 ]
 p = cbr_fox_builder(techniques)
-p.fit(training_windows = training_windows,target_training_windows = target_training_windows, forecasted_window = forecasted_window)
-p.predict(prediction = prediction,num_cases=5)
+p.fit(training_windows = training_windows, target_training_windows = target_training_windows, forecasted_window = forecasted_window)
+p.predict(prediction = prediction, num_cases=5, mode="weighted")
 # p.plot_correlation()
 
 p.visualize_pyplot(
+    mode = "combined",
     n_windows = 5,
     fmt = '--d',
     scatter_params={"s": 50},
@@ -35,3 +36,4 @@ p.visualize_pyplot(
     xlabel="x",
     ylabel="y"
 )
+

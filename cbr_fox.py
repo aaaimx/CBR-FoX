@@ -50,29 +50,7 @@ class cbr_fox:
                       ('correlation', 'f8'),
                       ('MAE', 'f8')]
 
-    # SECOND PRIVATE LAYER
-    def weighted_average(values, weights):
-        """
-        Calculate the weighted average of a set of values based on the provided weights.
 
-        Parameters
-        ----------
-        values : numpy.ndarray
-            A 3D array of values with shape (n_windows, window_len, components_len),
-            where `n_windows` is the number of windows, `window_len` is the length of each window,
-            and `components_len` is the number of features per timestep.
-        weights : numpy.ndarray or list
-            A 1D array or list of weights corresponding to the values. The length of `weights` must
-            match the first dimension of `values` (i.e., `n_windows`).
-
-        Returns
-        -------
-        numpy.ndarray
-            A 2D array of shape (window_len, components_len) representing the weighted average
-            of the input values.
-        """
-        weights = np.array(weights)[:, np.newaxis, np.newaxis]
-        return np.sum(values * weights, axis=0) / np.sum(weights)
 
     # FIRST PRIVATE LAYER
     def _smoothe_correlation(self):
@@ -185,6 +163,29 @@ class cbr_fox:
                          for index in indexes], dtype=self.dtype)
 
     def calculate_analysis_combined(self, input_data_dictionary, mode):
+        # SECOND PRIVATE LAYER
+        def weighted_average(values, weights):
+            """
+            Calculate the weighted average of a set of values based on the provided weights.
+
+            Parameters
+            ----------
+            values : numpy.ndarray
+                A 3D array of values with shape (n_windows, window_len, components_len),
+                where `n_windows` is the number of windows, `window_len` is the length of each window,
+                and `components_len` is the number of features per timestep.
+            weights : numpy.ndarray or list
+                A 1D array or list of weights corresponding to the values. The length of `weights` must
+                match the first dimension of `values` (i.e., `n_windows`).
+
+            Returns
+            -------
+            numpy.ndarray
+                A 2D array of shape (window_len, components_len) representing the weighted average
+                of the input values.
+            """
+            weights = np.array(weights)[:, np.newaxis, np.newaxis]
+            return np.sum(values * weights, axis=0) / np.sum(weights)
         """
         Perform combined best-case analysis based on the provided mode.
 
@@ -218,10 +219,12 @@ class cbr_fox:
             # Promedio simple
             if mode == "weighted":
                 # Promedio ponderado
-                average = self.weighted_average(input_data_dictionary["training_windows"][selected_cases],
+                average = weighted_average(input_data_dictionary["training_windows"][selected_cases],
                                                 self.correlation_per_window[selected_cases])
-            else:
+            elif mode == "simple":
                 average = np.mean(input_data_dictionary["training_windows"][selected_cases], axis=0)
+            else:
+                raise ValueError(f'Mode "{mode}" is not supported. Try: "simple" or "weighted".')
 
             target_average = np.mean(input_data_dictionary["target_training_windows"][selected_cases], axis=0)
             correlation_mean = np.mean(self.correlation_per_window[selected_cases])
@@ -403,7 +406,7 @@ class cbr_fox:
         self._compute_cbr_analysis(self.input_data_dictionary)
         logging.info("Análisis finalizado")
 
-    def predict(self, prediction, num_cases: int, mode="simple"):
+    def predict(self, prediction, num_cases: int, mode):
         """
         Perform analysis to identify the best cases based on the provided prediction.
 
