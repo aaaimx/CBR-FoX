@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>core.cbr_fox &#8212; prueba 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for core.cbr_fox</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<span class="kn">from</span> <span class="nn">statsmodels.nonparametric.smoothers_lowess</span> <span class="kn">import</span> <span class="n">lowess</span>
+<span class="kn">from</span> <span class="nn">adapters</span> <span class="kn">import</span> <span class="n">sktime_interface</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="cbr_fox">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox">[docs]</a>
+<span class="k">class</span> <span class="nc">cbr_fox</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Core class to perform calculations and analysis at technique-level depth.</span>
+
+<span class="sd">    This class is used to preprocess the provided input data for performing correlation and find the best cases. Its}</span>
+<span class="sd">    functionality follows classic AI library guidelines and standards such as scikit-learn and keras.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -------</span>
+<span class="sd">    metric : str or callable, optional</span>
+<span class="sd">        The metric to use for correlation (default is &quot;dtw&quot;).</span>
+<span class="sd">    smoothness_factor : float, optional</span>
+<span class="sd">        The smoothness factor for preprocessing (default is 0.2).</span>
+<span class="sd">    kwargs : dict, optional</span>
+<span class="sd">        Additional keyword arguments for customization.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    __init__(self, metric, smoothness_factor, kwargs)</span>
+<span class="sd">        Initializes the cbr_fox class with specified parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="cbr_fox.__init__">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="p">:</span> <span class="nb">str</span> <span class="ow">or</span> <span class="nb">callable</span> <span class="o">=</span> <span class="s2">&quot;dtw&quot;</span><span class="p">,</span> <span class="n">smoothness_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the cbr_fox class with specified parameters.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        metric</span>
+<span class="sd">        smoothness_factor</span>
+<span class="sd">        kwargs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Variables for setting</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smoothness_factor</span> <span class="o">=</span> <span class="n">smoothness_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="c1"># Variables for results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysisReport</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysisReport_combined</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_windows_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worst_windows_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bestMAE</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worstMAE</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="c1"># Private variables for easy access by private methods</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">correlation_per_window</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_data_dictionary</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">records_array</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">records_array_combined</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s1">&#39;target_window&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span> <span class="s1">&#39;f8&#39;</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s1">&#39;MAE&#39;</span><span class="p">,</span> <span class="s1">&#39;f8&#39;</span><span class="p">)]</span></div>
+
+
+    <span class="c1"># SECOND PRIVATE LAYER</span>
+<div class="viewcode-block" id="cbr_fox.weighted_average">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox.weighted_average">[docs]</a>
+    <span class="k">def</span> <span class="nf">weighted_average</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the weighted average of a set of values based on the provided weights.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        values : numpy.ndarray</span>
+<span class="sd">            A 3D array of values with shape (n_windows, window_len, components_len),</span>
+<span class="sd">            where `n_windows` is the number of windows, `window_len` is the length of each window,</span>
+<span class="sd">            and `components_len` is the number of features per timestep.</span>
+<span class="sd">        weights : numpy.ndarray or list</span>
+<span class="sd">            A 1D array or list of weights corresponding to the values. The length of `weights` must</span>
+<span class="sd">            match the first dimension of `values` (i.e., `n_windows`).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            A 2D array of shape (window_len, components_len) representing the weighted average</span>
+<span class="sd">            of the input values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">values</span> <span class="o">*</span> <span class="n">weights</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span></div>
+
+
+    <span class="c1"># FIRST PRIVATE LAYER</span>
+    <span class="k">def</span> <span class="nf">_smoothe_correlation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Smooth the correlation using the lowess method from scipy, applying the specified smoothness factor.</span>
+
+<span class="sd">        This method applies the Lowess (Locally Weighted Scatterplot Smoothing) technique to smooth the</span>
+<span class="sd">        correlation values for further analysis, with the smoothness factor used to control the degree</span>
+<span class="sd">        of smoothing.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            A numpy array representing the smoothed correlation values, which can be used for further analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">lowess</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__correlation_per_window</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__correlation_per_window</span><span class="p">)),</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">smoothness_factor</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_identify_valleys_peaks_indexes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         Identify the indices of valleys and peaks in the smoothed correlation array.</span>
+
+<span class="sd">         This method uses SciPy&#39;s `argrelextrema` function to locate local minima (valleys) and</span>
+<span class="sd">         local maxima (peaks) for further analysis.</span>
+
+<span class="sd">         Returns</span>
+<span class="sd">         -------</span>
+<span class="sd">         tuple of numpy.ndarray</span>
+<span class="sd">             A tuple containing two numpy arrays:</span>
+<span class="sd">             - The first array represents the indices of valleys (local minima).</span>
+<span class="sd">             - The second array represents the indices of peaks (local maxima).</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">signal</span><span class="o">.</span><span class="n">argrelextrema</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> \
+            <span class="n">signal</span><span class="o">.</span><span class="n">argrelextrema</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_retreive_concave_convex_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">windows_len</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract concave and convex segments from the smoothed correlation array.</span>
+
+<span class="sd">        This method splits the smoothed correlation data into concave and convex segments based on</span>
+<span class="sd">        the identified valley and peak indices, storing the results in private attributes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        windows_len : int</span>
+<span class="sd">            The length of the windows, corresponding to the number of data points in the correlation array.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            This method does not return a value but stores the calculated concave and convex segments</span>
+<span class="sd">            in the private attributes `self.concaveSegments` and `self.convexSegments`, respectively.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concaveSegments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">windows_len</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span><span class="p">))),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valley_index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convexSegments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">windows_len</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span><span class="p">))),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">peak_index</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_retreive_original_indexes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve original data point indexes from concave and convex segments.</span>
+
+<span class="sd">        This method processes the concave and convex segments to extract the original indexes</span>
+<span class="sd">        of data points from the correlation array. The indexes are stored in the private attributes</span>
+<span class="sd">        `self.best_windows_index` (for concave segments) and `self.worst_windows_index` (for convex segments).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            The extracted indexes are stored in private attributes for further analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">concaveSegments</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Segmentos cóncavos&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">best_windows_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">split</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">split</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">split</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">convexSegments</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Segmentos convexos&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">worst_windows_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">split</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">split</span> <span class="o">==</span> <span class="nb">min</span><span class="p">(</span><span class="n">split</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">]))</span>
+
+<div class="viewcode-block" id="cbr_fox.calculate_analysis">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox.calculate_analysis">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexes</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute analysis results and store them in a record array for reporting and visualization.</span>
+
+<span class="sd">        This method processes data for the specified indices, extracting relevant information such as</span>
+<span class="sd">        training windows, target windows, correlation values, and Mean Absolute Error (MAE). The results</span>
+<span class="sd">        are stored in a structured record array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        indexes : list of int</span>
+<span class="sd">            A list of indices corresponding to valleys and peaks in the non-smoothed correlation array.</span>
+<span class="sd">        input_data_dictionary : dict</span>
+<span class="sd">            A dictionary containing preprocessed input data, including training and target windows.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.recarray</span>
+<span class="sd">            A structured record array containing the following fields:</span>
+<span class="sd">            - Index: The index of the data point.</span>
+<span class="sd">            - Training window: The array representing the training window.</span>
+<span class="sd">            - Target window: The array representing the target window.</span>
+<span class="sd">            - Correlation value: The correlation value from the non-smoothed correlation array.</span>
+<span class="sd">            - MAE: The Mean Absolute Error (MAE) value comparing the target window and the prediction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">index</span><span class="p">,</span>
+                          <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;training_windows&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">],</span>
+                          <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;target_training_windows&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">],</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">correlation_per_window</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+                          <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;target_training_windows&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">],</span>
+                                              <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+                         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indexes</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cbr_fox.calculate_analysis_combined">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox.calculate_analysis_combined">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate_analysis_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform combined best-case analysis based on the provided mode.</span>
+
+<span class="sd">        This method iterates over the best and worst cases, calculates the mean absolute error (MAE),</span>
+<span class="sd">        average values for each window, and correlation mean based on the selected mode, and stores</span>
+<span class="sd">        the results for further analysis and report generation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_data_dictionary : dict</span>
+<span class="sd">            A dictionary containing processed input data, including training windows,</span>
+<span class="sd">            target training windows, and prediction arrays.</span>
+<span class="sd">        mode : str</span>
+<span class="sd">            The mode to apply for calculating the average. Options are:</span>
+<span class="sd">            - &quot;weighted&quot;: Uses a weighted average based on the correlation per window.</span>
+<span class="sd">            - &quot;simple&quot;: Calculates a simple mean across the selected cases.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            A structured array containing the calculated data for each window. Each entry includes:</span>
+<span class="sd">            - Index flag (to distinguish best and worst cases).</span>
+<span class="sd">            - Average values of the training windows.</span>
+<span class="sd">            - Average values of the target training windows.</span>
+<span class="sd">            - Correlation mean for the selected cases.</span>
+<span class="sd">            - Mean absolute error (MAE) between the prediction and target averages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">indices</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">best_windows_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">worst_windows_index</span><span class="p">]):</span>
+            <span class="n">selected_cases</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[:</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;num_cases&quot;</span><span class="p">]]</span>
+            <span class="c1"># Promedio simple</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;weighted&quot;</span><span class="p">:</span>
+                <span class="c1"># Promedio ponderado</span>
+                <span class="n">average</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_average</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;training_windows&quot;</span><span class="p">][</span><span class="n">selected_cases</span><span class="p">],</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">correlation_per_window</span><span class="p">[</span><span class="n">selected_cases</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">average</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;training_windows&quot;</span><span class="p">][</span><span class="n">selected_cases</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">target_average</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;target_training_windows&quot;</span><span class="p">][</span><span class="n">selected_cases</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">correlation_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">correlation_per_window</span><span class="p">[</span><span class="n">selected_cases</span><span class="p">])</span>
+
+            <span class="c1"># se sustituye np.mean(input_data_dictionary[&quot;target_training_windows&quot;][selected_cases], axis=0)</span>
+            <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">target_average</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="n">index</span><span class="p">,</span> <span class="n">average</span><span class="p">,</span> <span class="n">target_average</span><span class="p">,</span> <span class="n">correlation_mean</span><span class="p">,</span> <span class="n">mae</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_preprocess_input_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gather basic data information from the input variables.</span>
+
+<span class="sd">        This method processes the input data used for model training and forecasting,</span>
+<span class="sd">        creating a dictionary of relevant metadata.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        training_windows : numpy.ndarray</span>
+<span class="sd">            A 3D array of training windows with shape (n_windows, window_len, components_len),</span>
+<span class="sd">            where `n_windows` is the number of windows, `window_len` is the length of each window,</span>
+<span class="sd">            and `components_len` is the number of features per timestep.</span>
+<span class="sd">        target_training_windows : list</span>
+<span class="sd">            A list of target windows corresponding to each training window.</span>
+<span class="sd">        forecasted_window : list</span>
+<span class="sd">            The window used for forecasting and making predictions.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            A dictionary containing processed input data, including metadata such as</span>
+<span class="sd">            `components_len`, `window_len`, and `windows_len`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">input_data_dictionary</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;training_windows&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">training_windows</span>
+        <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;target_training_windows&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">target_training_windows</span>
+        <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;forecasted_window&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">forecasted_window</span>
+        <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;components_len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">training_windows</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;window_len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">training_windows</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;windows_len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">training_windows</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">input_data_dictionary</span>
+
+    <span class="k">def</span> <span class="nf">_compute_correlation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the correlation between training windows and target windows.</span>
+
+<span class="sd">        This method uses the sktime interface or custom metrics to calculate</span>
+<span class="sd">            correlations for further analysis and case retrieval.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_data_dictionary : dict</span>
+<span class="sd">            A dictionary containing processed input data, including training and</span>
+<span class="sd">            target windows.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            An array containing the correlation values for each window, normalized</span>
+<span class="sd">            between 0 and 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Implementing interface architecture to reduce tight coupling.</span>
+        <span class="n">correlation_per_window</span> <span class="o">=</span> <span class="n">sktime_interface</span><span class="o">.</span><span class="n">compute_distance_interface</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span>
+                                                                             <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">correlation_per_window</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">correlation_per_window</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">correlation_per_window</span> <span class="o">=</span> <span class="p">((</span><span class="n">correlation_per_window</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">correlation_per_window</span><span class="p">))</span> <span class="o">/</span>
+                                  <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">correlation_per_window</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">correlation_per_window</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">correlation_per_window</span> <span class="o">=</span> <span class="n">correlation_per_window</span>
+        <span class="k">return</span> <span class="n">correlation_per_window</span>
+
+    <span class="k">def</span> <span class="nf">_compute_cbr_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the analysis to smoothe, extract, retrieve indexes from the non-smoothed correlation</span>
+
+<span class="sd">        This method smooths the window correlation, identifies peaks and valleys,</span>
+<span class="sd">        extracts concave and convex segments, and retrieves the original indexes</span>
+<span class="sd">        from the non-smoothed correlation array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_data_dictionary : dict</span>
+<span class="sd">            A dictionary containing processed input data, which includes information</span>
+<span class="sd">            about the window lengths.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            This method modifies internal attributes and does not return a value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Suavizando Correlación&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_smoothe_correlation</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Extrayendo crestas y valles&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valley_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">peak_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identify_valleys_peaks_indexes</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Recuperando segmentos convexos y cóncavos&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_retreive_concave_convex_segments</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;windows_len&#39;</span><span class="p">])</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Recuperando índices originales de correlación&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_retreive_original_indexes</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_compute_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Calculate statistics based on identified cases.</span>
+
+<span class="sd">          This method performs calculations for both non-combined and combined results,</span>
+<span class="sd">          selecting the appropriate case based on the number passed by the user.</span>
+<span class="sd">          It generates a report for the user based on the computed statistics.</span>
+
+<span class="sd">          Parameters</span>
+<span class="sd">          ----------</span>
+<span class="sd">          input_data_dictionary : dict</span>
+<span class="sd">              A dictionary containing processed input data, including the number of cases to select.</span>
+
+<span class="sd">          mode : str</span>
+<span class="sd">              A string passed when the instance is created, used to set the strategy for combining cases.</span>
+
+<span class="sd">          Returns</span>
+<span class="sd">          -------</span>
+<span class="sd">          None</span>
+<span class="sd">              This method performs operations to generate and set the results, including reports for the user.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">records_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_analysis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">best_windows_index</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">worst_windows_index</span><span class="p">,</span>
+                                                     <span class="n">input_data_dictionary</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">records_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">records_array</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;correlation&quot;</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Selecting just the number of elements according to num_cases variable</span>
+        <span class="c1"># The conditional is to avoid duplicity in case records_arrays&#39;s shape is not greater than the selected num_cases</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">records_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;num_cases&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">records_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">records_array</span><span class="p">[:</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;num_cases&quot;</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">records_array</span><span class="p">[</span>
+                                                                          <span class="o">-</span><span class="n">input_data_dictionary</span><span class="p">[</span>
+                                                                              <span class="s2">&quot;num_cases&quot;</span><span class="p">]:]))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">records_array_combined</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_analysis_combined</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generando reporte de análisis&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysisReport</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">records_array</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysisReport_combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">records_array_combined</span><span class="p">))</span>
+
+    <span class="c1"># PUBLIC METHODS. ALL THESE METHODS ARE PROVIDED FOR THE USER. Public layer</span>
+
+<div class="viewcode-block" id="cbr_fox.fit">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform correlation analysis and identify cases based on the provided data.</span>
+
+<span class="sd">        This method analyzes the provided training windows, calculates the correlation using</span>
+<span class="sd">        the selected metric, and performs CBR analysis to identify cases based on the data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        training_windows : numpy.ndarray</span>
+<span class="sd">            A 3D array of training windows with shape (n_windows, window_len, components_len),</span>
+<span class="sd">            where `n_windows` is the number of windows, `window_len` is the length of each window,</span>
+<span class="sd">            and `components_len` is the number of features per timestep.</span>
+
+<span class="sd">        target_training_windows : list</span>
+<span class="sd">            A list of target windows corresponding to each training window.</span>
+
+<span class="sd">        forecasted_window : list</span>
+<span class="sd">            A window used for forecasting and making predictions.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            This method performs calculations for correlation analysis and case-based reasoning.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Analizando conjunto de datos&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_data_dictionary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_input_data</span><span class="p">(</span><span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span>
+                                                                 <span class="n">forecasted_window</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Calculando Correlación&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__correlation_per_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_correlation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Computando análisis de CBR&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compute_cbr_analysis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Análisis finalizado&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cbr_fox.predict">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox.predict">[docs]</a>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform analysis to identify the best cases based on the provided prediction.</span>
+
+<span class="sd">        This method computes the statistics to identify the best cases compared to the provided</span>
+<span class="sd">        prediction and returns results that can be accessed through corresponding methods.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        prediction : numpy.ndarray</span>
+<span class="sd">            The prediction generated by the AI model.</span>
+
+<span class="sd">        num_cases : int</span>
+<span class="sd">            The maximum number of cases to identify.</span>
+
+<span class="sd">        mode : str, optional</span>
+<span class="sd">            A string to specify the mode for the combined case option, which can be either &#39;simple&#39; or &#39;combined&#39;.</span>
+<span class="sd">            The default is &quot;simple&quot;.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">            This method performs the analysis, and results can be accessed via the corresponding methods.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prediction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s1">&#39;num_cases&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_cases</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compute_statistics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cbr_fox.get_analysis_report">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox.get_analysis_report">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_analysis_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Access the analysis report containing the best cases based on the analysis.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pandas.DataFrame</span>
+<span class="sd">            A DataFrame containing the best cases and their respective information based on the analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysisReport</span></div>
+
+
+<div class="viewcode-block" id="cbr_fox.get_analysis_report_combined">
+<a class="viewcode-back" href="../../core.html#core.cbr_fox.cbr_fox.get_analysis_report_combined">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_analysis_report_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Access the combined analysis report containing the best cases based on the combined analysis.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pandas.DataFrame</span>
+<span class="sd">            A DataFrame containing the combined best cases and their respective information based on the analysis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysisReport_combined</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">prueba</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">cbr_fox</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, prueba.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

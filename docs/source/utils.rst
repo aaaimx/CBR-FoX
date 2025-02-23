@@ -1,13 +1,13 @@
-builder package
-===============
+utils package
+=============
 
 Submodules
 ----------
 
-builder.cbr\_fox\_builder module
---------------------------------
+utils.plot\_utils module
+------------------------
 
-.. automodule:: builder.cbr_fox_builder
+.. automodule:: utils.plot_utils
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ builder.cbr\_fox\_builder module
 Module contents
 ---------------
 
-.. automodule:: builder
+.. automodule:: utils
    :members:
    :undoc-members:
    :show-inheritance:
