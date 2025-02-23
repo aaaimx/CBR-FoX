@@ -1,6 +1,7 @@
-import cbr_fox
-from factory.cbr_fox_builder import cbr_fox_builder
-from custom_distance.cci_distance import cci_distance
+
+from src.core import cbr_fox
+from src.builder.cbr_fox_builder import cbr_fox_builder
+from src.custom_distance.cci_distance import cci_distance
 import numpy as np
 
 # Load the saved data
