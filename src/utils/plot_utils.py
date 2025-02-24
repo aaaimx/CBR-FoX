@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-def visualize_correlation_per_window(self, plt_oject, input_data_dictionary):
-    pass
 
 def visualize_pyplot(cbr_fox_instance, **kwargs):
     figs_axes = []
