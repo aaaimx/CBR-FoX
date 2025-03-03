@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cbr_fox.builder.cbr_fox_builder &mdash; q q documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4562a6e5" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee4e5dda"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            q
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">CBR FoX API Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">q</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cbr_fox.builder.cbr_fox_builder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cbr_fox.builder.cbr_fox_builder</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">plot_utils</span>
+<div class="viewcode-block" id="cbr_fox_builder">
+<a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder">[docs]</a>
+<span class="k">class</span> <span class="nc">cbr_fox_builder</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for managing multiple techniques used in case-based reasoning (CBR) with cbr_fox objects.</span>
+
+<span class="sd">    This class allows the user to store different techniques, explain them, fit them to training data, and make predictions.</span>
+<span class="sd">    It provides an interface for visualizing the results of each technique using `plot_utils`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techniques</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the cbr_fox_builder with a list of techniques.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        techniques: list</span>
+<span class="sd">            A list of techniques (objects) that contain a metric (string or callable) for CBR.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="c1"># Store techniques as a dictionary, where the key is the technique name and the value is the cbr_fox object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">techniques</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+
+<div class="viewcode-block" id="cbr_fox_builder.explain_all_techniques">
+<a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.explain_all_techniques">[docs]</a>
+    <span class="k">def</span> <span class="nf">explain_all_techniques</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Explains all techniques provided by the user.</span>
+
+<span class="sd">        This method loops through each technique stored in `techniques_dict` and calls the `explain` method</span>
+<span class="sd">        of each one to provide an explanation of the given case.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        training_windows: ndarray</span>
+<span class="sd">            The training windows for the CBR model.</span>
+<span class="sd">        target_training_windows: ndarray</span>
+<span class="sd">            The target training windows for the CBR model.</span>
+<span class="sd">        forecasted_window: ndarray</span>
+<span class="sd">            The forecasted window for the CBR model.</span>
+<span class="sd">        prediction: ndarray</span>
+<span class="sd">            The prediction made by the CBR model.</span>
+<span class="sd">        num_cases: int</span>
+<span class="sd">            The number of cases used in the explanation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cbr_fox_builder.fit">
+<a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fits all techniques to the provided training data.</span>
+
+<span class="sd">        This method calls the `fit` method of each technique stored in `techniques_dict`</span>
+<span class="sd">        to train them using the provided data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        training_windows: ndarray</span>
+<span class="sd">            The training windows for the CBR model.</span>
+<span class="sd">        target_training_windows: ndarray</span>
+<span class="sd">            The target training windows for the CBR model.</span>
+<span class="sd">        forecasted_window: ndarray</span>
+<span class="sd">            The forecasted window for the CBR model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cbr_fox_builder.predict">
+<a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.predict">[docs]</a>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">):</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Makes predictions using all the techniques stored in `techniques_dict`.</span>
+
+<span class="sd">        This method calls the `predict` method of each technique, passing the provided prediction and number of cases.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        prediction: ndarray</span>
+<span class="sd">            The predicted values for the given cases.</span>
+<span class="sd">        num_cases: int</span>
+<span class="sd">            The number of cases to predict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Override __getitem__ to allow dictionary-like access</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">technique_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows dictionary-like access to retrieve a specific technique.</span>
+
+<span class="sd">        This method returns the corresponding cbr_fox object for the requested technique name.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        technique_name: str</span>
+<span class="sd">            The name of the technique to retrieve.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cbr_fox object</span>
+<span class="sd">            The technique associated with the provided name.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        KeyError</span>
+<span class="sd">            If the requested technique name does not exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Return the corresponding cbr_fox object for the requested technique</span>
+        <span class="k">if</span> <span class="n">technique_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">technique_name</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Technique &#39;</span><span class="si">{</span><span class="n">technique_name</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span>
+
+    <span class="c1">#def visualize_pyplot(self,**kwargs):</span>
+
+    <span class="c1">#    return [plot_utils.visualize_pyplot(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]</span>
+
+<div class="viewcode-block" id="cbr_fox_builder.visualize_pyplot">
+<a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.visualize_pyplot">[docs]</a>
+    <span class="k">def</span> <span class="nf">visualize_pyplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;individual&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Visualizes the techniques using `plot_utils.visualize_pyplot`.</span>
+
+<span class="sd">        This method creates visualizations for all the techniques in `techniques_dict` using `plot_utils`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs:</span>
+<span class="sd">            Additional keyword arguments to pass to the visualization function.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of visualizations for each technique.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;individual&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">visualize_pyplot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;combined&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">visualize_combined_pyplot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mode &#39;</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&#39; not supported. Use &#39;individual&#39; or &#39;combined&#39;.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, q.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

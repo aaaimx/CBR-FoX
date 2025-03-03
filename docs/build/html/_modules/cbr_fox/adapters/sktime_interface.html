@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cbr_fox.adapters.sktime_interface &mdash; q q documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4562a6e5" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee4e5dda"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            q
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">CBR FoX API Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">q</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cbr_fox.adapters.sktime_interface</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cbr_fox.adapters.sktime_interface</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">sktime.distances</span> <span class="kn">import</span> <span class="n">distance</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+
+<div class="viewcode-block" id="pearson">
+<a class="viewcode-back" href="../../../cbr_fox.adapters.html#cbr_fox.adapters.sktime_interface.pearson">[docs]</a>
+<span class="k">def</span> <span class="nf">pearson</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the Pearson correlation coefficient between two arrays.</span>
+
+<span class="sd">    This function uses NumPy&#39;s `corrcoef` method to calculate the Pearson correlation matrix</span>
+<span class="sd">    and extracts the correlation coefficient between `x` and `y`. The value returned is a measure</span>
+<span class="sd">    of linear correlation between the two input arrays, ranging from -1 (perfect negative correlation)</span>
+<span class="sd">    to 1 (perfect positive correlation).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array_like</span>
+<span class="sd">        First input array, can be any shape that is compatible with NumPy&#39;s `corrcoef` method.</span>
+<span class="sd">    y : array_like</span>
+<span class="sd">        Second input array, should have the same shape as `x`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Pearson correlation coefficient between `x` and `y`.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The function uses NumPy&#39;s `corrcoef` which computes the correlation matrix, and the coefficient</span>
+<span class="sd">    is extracted from this matrix.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="distance_sktime_interface">
+<a class="viewcode-back" href="../../../cbr_fox.adapters.html#cbr_fox.adapters.sktime_interface.distance_sktime_interface">[docs]</a>
+<span class="k">def</span> <span class="nf">distance_sktime_interface</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{}):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interface for computing pairwise distances using a custom or built-in sktime metric.</span>
+
+<span class="sd">    This function calculates the correlation or distance between two arrays for each component of each window.</span>
+<span class="sd">    It allows the use of either sktime&#39;s built-in distance metrics or user-defined custom metrics,</span>
+<span class="sd">    offering flexibility in the analysis. If the computation results in any NaN values, the function</span>
+<span class="sd">    logs an error and raises an exception to prevent invalid further calculations.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_data_dictionary : dict</span>
+<span class="sd">        Dictionary containing the input data. The dictionary should contain keys for `forecasted_window`,</span>
+<span class="sd">        `training_windows`, `windows_len`, and `components_len`.</span>
+<span class="sd">    metric : str or callable</span>
+<span class="sd">        The metric to be used for computing distances. This can either be a built-in sktime metric or a custom function.</span>
+<span class="sd">    kwargs : dict, optional</span>
+<span class="sd">        Additional arguments passed to the metric function (default is an empty dictionary).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        A numpy array containing the pairwise distances or correlations between the forecasted and training windows</span>
+<span class="sd">        for each component.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the computation results in NaN values, an error will be raised.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">distance</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;forecasted_window&quot;</span><span class="p">][:,</span> <span class="n">current_component</span><span class="p">],</span>
+                  <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;training_windows&quot;</span><span class="p">][</span><span class="n">current_window</span><span class="p">,</span> <span class="p">:,</span> <span class="n">current_component</span><span class="p">],</span>
+                  <span class="n">metric</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+         <span class="k">for</span> <span class="n">current_window</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;windows_len&quot;</span><span class="p">]),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Windows procesadas&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+         <span class="k">for</span> <span class="n">current_component</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;components_len&quot;</span><span class="p">])]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;components_len&quot;</span><span class="p">])</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="compute_distance_interface">
+<a class="viewcode-back" href="../../../cbr_fox.adapters.html#cbr_fox.adapters.sktime_interface.compute_distance_interface">[docs]</a>
+<span class="k">def</span> <span class="nf">compute_distance_interface</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span>
+                               <span class="n">metric</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="nb">float</span><span class="p">]],</span>
+                               <span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interface for computing pairwise distances using sktime metrics or custom callable functions.</span>
+
+<span class="sd">    This function attempts to calculate the distance or correlation between arrays using the specified</span>
+<span class="sd">    `metric`. It first tries to execute the metric as a sktime-compatible distance function. If that fails,</span>
+<span class="sd">    it falls back to using the `metric` as a user-defined callable function. Any errors during the process</span>
+<span class="sd">    are logged, and an exception is raised if all attempts fail.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_data_dictionary : dict</span>
+<span class="sd">        The dictionary containing preprocessed input data. It includes keys for `forecasted_window`,</span>
+<span class="sd">        `training_windows`, `windows_len`, and `components_len`.</span>
+<span class="sd">    metric : str or callable</span>
+<span class="sd">        A string or callable object used to compute the distance or correlation between two arrays.</span>
+<span class="sd">    kwargs : dict</span>
+<span class="sd">        Additional keyword arguments to pass to the metric. Default is an empty dictionary.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        A numpy array containing the computed distances or correlations for each component or window.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If both the sktime metric and the custom callable fail to compute the distance.</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If `metric` is not a string or callable.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The sktime metric interface is tried first. If it fails, the function attempts to execute `metric` as a callable.</span>
+<span class="sd">    - All errors are logged for debugging purposes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">correlation_per_window</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+    <span class="c1"># correlation_per_window = metric(input_data_dictionary, **kwargs)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Attempt to use sktime&#39;s distance interface</span>
+        <span class="k">return</span> <span class="n">distance_sktime_interface</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">sktime_error</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed with sktime metric: </span><span class="si">{</span><span class="n">sktime_error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Fallback to custom callable</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">metric</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">metric</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metric must be callable or sktime-compatible, got: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">custom_error</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Custom callable execution failed&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">raise</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, q.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
