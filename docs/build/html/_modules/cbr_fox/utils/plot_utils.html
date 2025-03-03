@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cbr_fox.utils.plot_utils &mdash; q q documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4562a6e5" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=ee4e5dda"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            q
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">CBR FoX API Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">q</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cbr_fox.utils.plot_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cbr_fox.utils.plot_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="viewcode-block" id="visualize_pyplot">
+<a class="viewcode-back" href="../../../cbr_fox.utils.html#cbr_fox.utils.plot_utils.visualize_pyplot">[docs]</a>
+<span class="k">def</span> <span class="nf">visualize_pyplot</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Visualize the best cases&#39; components using Matplotlib.</span>
+
+<span class="sd">    This method generates multiple plots to visualize the components of the best cases</span>
+<span class="sd">    found by the Case-Based Reasoning (CBR) system. It visualizes the forecasted window,</span>
+<span class="sd">    the prediction, and the best matching windows with the target windows. Each plot is</span>
+<span class="sd">    customized based on parameters passed through `kwargs` for flexibility.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cbr_fox_instance : object</span>
+<span class="sd">        An instance of the CBR system that contains the necessary data for plotting,</span>
+<span class="sd">        such as the forecasted window, predictions, and best windows.</span>
+
+<span class="sd">        kwargs : keyword arguments</span>
+<span class="sd">            Additional arguments for customizing the plot appearance and behavior. The</span>
+<span class="sd">            following options are supported:</span>
+<span class="sd">            - &#39;forecast_label&#39; : str, optional, default=&quot;Forecasted Window&quot;</span>
+<span class="sd">                The label for the forecasted window line in the plot.</span>
+<span class="sd">            - &#39;prediction_label&#39; : str, optional, default=&quot;Prediction&quot;</span>
+<span class="sd">                The label for the prediction point in the plot.</span>
+<span class="sd">            - &#39;fmt&#39; : str, optional</span>
+<span class="sd">                The format string for plotting the best windows.</span>
+<span class="sd">            - &#39;plot_params&#39; : dict, optional</span>
+<span class="sd">                Additional keyword arguments for customizing the best window plot.</span>
+<span class="sd">            - &#39;scatter_params&#39; : dict, optional</span>
+<span class="sd">                Additional parameters for customizing the scatter plot for target windows.</span>
+<span class="sd">            - &#39;xlim&#39; : tuple, optional</span>
+<span class="sd">                The limits for the x-axis (min, max).</span>
+<span class="sd">            - &#39;ylim&#39; : tuple, optional</span>
+<span class="sd">                The limits for the y-axis (min, max).</span>
+<span class="sd">            - &#39;xtick_rotation&#39; : int, optional, default=0</span>
+<span class="sd">                The rotation angle for x-axis tick labels.</span>
+<span class="sd">            - &#39;xtick_ha&#39; : str, optional, default=&#39;right&#39;</span>
+<span class="sd">                Horizontal alignment of the x-axis tick labels (&#39;left&#39;, &#39;center&#39;, &#39;right&#39;).</span>
+<span class="sd">            - &#39;title&#39; : str, optional, default=&quot;Plot {i + 1}&quot;</span>
+<span class="sd">                The title for the plot.</span>
+<span class="sd">            - &#39;xlabel&#39; : str, optional, default=&quot;Axis X&quot;</span>
+<span class="sd">                The label for the x-axis.</span>
+<span class="sd">            - &#39;ylabel&#39; : str, optional, default=&quot;Axis Y&quot;</span>
+<span class="sd">                The label for the y-axis.</span>
+<span class="sd">            - &#39;legend&#39; : bool, optional, default=True</span>
+<span class="sd">                Whether to display the legend in the plot.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of tuples</span>
+<span class="sd">        A list of tuples where each tuple contains a figure and axis object for</span>
+<span class="sd">        each plot generated, which can be used for further customization or saving.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The function will create a plot for each component in the target training</span>
+<span class="sd">      windows based on the number of components available in the data.</span>
+<span class="sd">    - This function requires a working instance of the CBR system, which holds the</span>
+<span class="sd">      data for the best windows and predictions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">figs_axes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n_windows</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;n_windows&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">best_windows_index</span><span class="p">))</span>
+    <span class="c1"># Un plot por cada componente</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;target_training_windows&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+        <span class="c1"># Plot forecasted window and prediction</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">]),</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;forecasted_window&quot;</span><span class="p">][:,</span> <span class="n">i</span><span class="p">],</span>
+            <span class="s1">&#39;--dk&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;forecast_label&quot;</span><span class="p">,</span> <span class="s2">&quot;Forecasted Window&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">],</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prediction_label&quot;</span><span class="p">,</span> <span class="s2">&quot;Prediction&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Plot best windows</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">best_windows_index</span><span class="p">[:</span><span class="n">n_windows</span><span class="p">]:</span>
+
+            <span class="n">plot_args</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">]),</span>
+                <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;training_windows&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;fmt&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">plot_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;fmt&quot;</span><span class="p">])</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">plot_args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;plot_params&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;windows_label&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Window </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+                <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">],</span>
+                <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;target_training_windows&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scatter_params&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xlim&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ylim&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">]))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xtick_rotation&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xtick_ha&quot;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Plot </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xlabel&quot;</span><span class="p">,</span> <span class="s2">&quot;Axis X&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ylabel&quot;</span><span class="p">,</span> <span class="s2">&quot;Axis Y&quot;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;legend&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+        <span class="n">figs_axes</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">figs_axes</span></div>
+
+
+
+<div class="viewcode-block" id="visualize_combined_pyplot">
+<a class="viewcode-back" href="../../../cbr_fox.utils.html#cbr_fox.utils.plot_utils.visualize_combined_pyplot">[docs]</a>
+<span class="k">def</span> <span class="nf">visualize_combined_pyplot</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Visualize the combined data and best cases&#39; components using Matplotlib.</span>
+
+<span class="sd">    This method generates plots that display the forecasted window, prediction, and</span>
+<span class="sd">    a combined data representation for each component in the dataset. The function</span>
+<span class="sd">    helps in visually analyzing how the CBR system&#39;s predictions align with the combined</span>
+<span class="sd">    data and best matching cases. Users can customize the plot appearance and behavior</span>
+<span class="sd">    through Matplotlib configurations passed via `kwargs`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cbr_fox_instance : object</span>
+<span class="sd">        An instance of the CBR system that contains the necessary data for plotting,</span>
+<span class="sd">        including forecasted windows, predictions, and combined records.</span>
+
+<span class="sd">        kwargs : keyword arguments</span>
+<span class="sd">            Additional arguments for customizing the plot appearance and behavior. Supported options:</span>
+<span class="sd">            - &#39;forecast_label&#39; : str, optional, default=&quot;Forecasted Window&quot;</span>
+<span class="sd">                The label for the forecasted window line.</span>
+<span class="sd">            - &#39;prediction_label&#39; : str, optional, default=&quot;Prediction&quot;</span>
+<span class="sd">                The label for the prediction point.</span>
+<span class="sd">            - &#39;combined_label&#39; : str, optional, default=&quot;Combined Data&quot;</span>
+<span class="sd">                The label for the combined data plot.</span>
+<span class="sd">            - &#39;combined_target_label&#39; : str, optional, default=&quot;Combined Target&quot;</span>
+<span class="sd">                The label for the scatter points representing the combined target values.</span>
+<span class="sd">            - &#39;xlim&#39; : tuple, optional</span>
+<span class="sd">                The limits for the x-axis (min, max).</span>
+<span class="sd">            - &#39;ylim&#39; : tuple, optional</span>
+<span class="sd">                The limits for the y-axis (min, max).</span>
+<span class="sd">            - &#39;xtick_rotation&#39; : int, optional, default=0</span>
+<span class="sd">                The rotation angle for x-axis tick labels.</span>
+<span class="sd">            - &#39;xtick_ha&#39; : str, optional, default=&#39;right&#39;</span>
+<span class="sd">                Horizontal alignment of the x-axis tick labels (&#39;left&#39;, &#39;center&#39;, &#39;right&#39;).</span>
+<span class="sd">            - &#39;title&#39; : str, optional, default=&quot;Combined Plot {i + 1}&quot;</span>
+<span class="sd">                The title for the plot.</span>
+<span class="sd">            - &#39;xlabel&#39; : str, optional, default=&quot;Axis X&quot;</span>
+<span class="sd">                The label for the x-axis.</span>
+<span class="sd">            - &#39;ylabel&#39; : str, optional, default=&quot;Axis Y&quot;</span>
+<span class="sd">                The label for the y-axis.</span>
+<span class="sd">            - &#39;legend&#39; : bool, optional, default=True</span>
+<span class="sd">                Whether to display the legend in the plot.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of tuples</span>
+<span class="sd">        A list of tuples where each tuple contains a figure and axis object for</span>
+<span class="sd">        each plot generated, allowing further customization or saving.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The function generates a plot for each component in the dataset based on the</span>
+<span class="sd">      number of available target training windows.</span>
+<span class="sd">    - It overlays forecasted data with combined records to facilitate a direct comparison.</span>
+<span class="sd">    - This function requires a valid `cbr_fox_instance` containing precomputed records.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">figs_axes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Un plot por cada componente</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;target_training_windows&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+        <span class="c1"># Plot forecasted window and prediction</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">]),</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;forecasted_window&quot;</span><span class="p">][:,</span> <span class="n">i</span><span class="p">],</span>
+            <span class="s1">&#39;--dk&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;forecast_label&quot;</span><span class="p">,</span> <span class="s2">&quot;Forecasted Window&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">],</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;prediction&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prediction_label&quot;</span><span class="p">,</span> <span class="s2">&quot;Prediction&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Plot combined data</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">]),</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">records_array_combined</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][:,</span> <span class="n">i</span><span class="p">],</span>
+            <span class="s1">&#39;-or&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;combined_label&quot;</span><span class="p">,</span> <span class="s2">&quot;Combined Data&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">],</span>
+            <span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">records_array_combined</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;combined_target_label&quot;</span><span class="p">,</span> <span class="s2">&quot;Combined Target&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xlim&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ylim&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cbr_fox_instance</span><span class="o">.</span><span class="n">input_data_dictionary</span><span class="p">[</span><span class="s2">&quot;window_len&quot;</span><span class="p">]))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xtick_rotation&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xtick_ha&quot;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Combined Plot </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;xlabel&quot;</span><span class="p">,</span> <span class="s2">&quot;Axis X&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ylabel&quot;</span><span class="p">,</span> <span class="s2">&quot;Axis Y&quot;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;legend&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+        <span class="n">figs_axes</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">figs_axes</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, q.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
