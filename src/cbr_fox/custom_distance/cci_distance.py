@@ -1,33 +1,33 @@
 import numpy as np
-from src.adapters import sktime_interface
+from ..adapters import sktime_interface
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 def cci_distance(input_data_dictionary, punishedSumFactor):
     """
-        Compute a combined correlation and distance measure using Pearson correlation
-        and Euclidean distance, with a normalization factor applied.
+    Compute a combined correlation and distance measure using Pearson correlation
+    and Euclidean distance, with a normalization factor applied.
 
-        This function first computes the Pearson correlation and the Euclidean distance
-        between training windows and target windows using the `sktime_interface`. Then,
-        it normalizes the Euclidean distance and combines both the correlation and
-        distance measures into a final value. The result is further scaled and returned.
+    This function first computes the Pearson correlation and the Euclidean distance
+    between training windows and target windows using the `sktime_interface`. Then,
+    it normalizes the Euclidean distance and combines both the correlation and
+    distance measures into a final value. The result is further scaled and returned.
 
-        Parameters
-        ----------
-        input_data_dictionary : dict
-            A dictionary containing processed input data, including training windows,
-            target training windows, and any other necessary components for distance
-            calculations.
-        punishedSumFactor : float
-            A factor applied to the sum of the normalized correlation to adjust the
-            final computed correlation.
+    Parameters
+    ----------
+    input_data_dictionary : dict
+        A dictionary containing processed input data, including training windows,
+        target training windows, and any other necessary components for distance
+        calculations.
+    punishedSumFactor : float
+        A factor applied to the sum of the normalized correlation to adjust the
+        final computed correlation.
 
-        Returns
-        -------
-        numpy.ndarray
-            A 2D array of shape (n_windows, 1) representing the normalized and scaled
-            correlation per window.
+    Returns
+    -------
+    numpy.ndarray
+        A 2D array of shape (n_windows, 1) representing the normalized and scaled
+        correlation per window.
     """
 
     logging.info("Aplicando Correlación de Pearson")

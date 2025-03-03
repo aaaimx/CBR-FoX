@@ -1,21 +1,19 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
-
 def visualize_pyplot(cbr_fox_instance, **kwargs):
     """
-        Visualize the best cases' components using Matplotlib.
+    Visualize the best cases' components using Matplotlib.
 
-        This method generates multiple plots to visualize the components of the best cases
-        found by the Case-Based Reasoning (CBR) system. It visualizes the forecasted window,
-        the prediction, and the best matching windows with the target windows. Each plot is
-        customized based on parameters passed through `kwargs` for flexibility.
+    This method generates multiple plots to visualize the components of the best cases
+    found by the Case-Based Reasoning (CBR) system. It visualizes the forecasted window,
+    the prediction, and the best matching windows with the target windows. Each plot is
+    customized based on parameters passed through `kwargs` for flexibility.
 
-        Parameters
-        ----------
-        cbr_fox_instance : object
-            An instance of the CBR system that contains the necessary data for plotting,
-            such as the forecasted window, predictions, and best windows.
+    Parameters
+    ----------
+    cbr_fox_instance : object
+        An instance of the CBR system that contains the necessary data for plotting,
+        such as the forecasted window, predictions, and best windows.
 
         kwargs : keyword arguments
             Additional arguments for customizing the plot appearance and behavior. The
@@ -47,18 +45,18 @@ def visualize_pyplot(cbr_fox_instance, **kwargs):
             - 'legend' : bool, optional, default=True
                 Whether to display the legend in the plot.
 
-        Returns
-        -------
-        list of tuples
-            A list of tuples where each tuple contains a figure and axis object for
-            each plot generated, which can be used for further customization or saving.
+    Returns
+    -------
+    list of tuples
+        A list of tuples where each tuple contains a figure and axis object for
+        each plot generated, which can be used for further customization or saving.
 
-        Notes
-        -----
-        - The function will create a plot for each component in the target training
-          windows based on the number of components available in the data.
-        - This function requires a working instance of the CBR system, which holds the
-          data for the best windows and predictions.
+    Notes
+    -----
+    - The function will create a plot for each component in the target training
+      windows based on the number of components available in the data.
+    - This function requires a working instance of the CBR system, which holds the
+      data for the best windows and predictions.
     """
 
     figs_axes = []
@@ -134,32 +132,32 @@ def visualize_combined_pyplot(cbr_fox_instance, **kwargs):
         An instance of the CBR system that contains the necessary data for plotting,
         including forecasted windows, predictions, and combined records.
 
-    kwargs : keyword arguments
-        Additional arguments for customizing the plot appearance and behavior. Supported options:
-        - 'forecast_label' : str, optional, default="Forecasted Window"
-            The label for the forecasted window line.
-        - 'prediction_label' : str, optional, default="Prediction"
-            The label for the prediction point.
-        - 'combined_label' : str, optional, default="Combined Data"
-            The label for the combined data plot.
-        - 'combined_target_label' : str, optional, default="Combined Target"
-            The label for the scatter points representing the combined target values.
-        - 'xlim' : tuple, optional
-            The limits for the x-axis (min, max).
-        - 'ylim' : tuple, optional
-            The limits for the y-axis (min, max).
-        - 'xtick_rotation' : int, optional, default=0
-            The rotation angle for x-axis tick labels.
-        - 'xtick_ha' : str, optional, default='right'
-            Horizontal alignment of the x-axis tick labels ('left', 'center', 'right').
-        - 'title' : str, optional, default="Combined Plot {i + 1}"
-            The title for the plot.
-        - 'xlabel' : str, optional, default="Axis X"
-            The label for the x-axis.
-        - 'ylabel' : str, optional, default="Axis Y"
-            The label for the y-axis.
-        - 'legend' : bool, optional, default=True
-            Whether to display the legend in the plot.
+        kwargs : keyword arguments
+            Additional arguments for customizing the plot appearance and behavior. Supported options:
+            - 'forecast_label' : str, optional, default="Forecasted Window"
+                The label for the forecasted window line.
+            - 'prediction_label' : str, optional, default="Prediction"
+                The label for the prediction point.
+            - 'combined_label' : str, optional, default="Combined Data"
+                The label for the combined data plot.
+            - 'combined_target_label' : str, optional, default="Combined Target"
+                The label for the scatter points representing the combined target values.
+            - 'xlim' : tuple, optional
+                The limits for the x-axis (min, max).
+            - 'ylim' : tuple, optional
+                The limits for the y-axis (min, max).
+            - 'xtick_rotation' : int, optional, default=0
+                The rotation angle for x-axis tick labels.
+            - 'xtick_ha' : str, optional, default='right'
+                Horizontal alignment of the x-axis tick labels ('left', 'center', 'right').
+            - 'title' : str, optional, default="Combined Plot {i + 1}"
+                The title for the plot.
+            - 'xlabel' : str, optional, default="Axis X"
+                The label for the x-axis.
+            - 'ylabel' : str, optional, default="Axis Y"
+                The label for the y-axis.
+            - 'legend' : bool, optional, default=True
+                Whether to display the legend in the plot.
 
     Returns
     -------

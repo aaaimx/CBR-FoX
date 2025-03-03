@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.metrics import mean_absolute_error
 from scipy import signal
 from statsmodels.nonparametric.smoothers_lowess import lowess
-from src.adapters import sktime_interface
+from ..adapters import sktime_interface
 from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -200,33 +200,7 @@ class cbr_fox:
             """
             weights = np.array(weights)[:, np.newaxis, np.newaxis]
             return np.sum(values * weights, axis=0) / np.sum(weights)
-        """
-        Perform combined best-case analysis based on the provided mode.
 
-        This method iterates over the best and worst cases, calculates the mean absolute error (MAE),
-        average values for each window, and correlation mean based on the selected mode, and stores
-        the results for further analysis and report generation.
-
-        Parameters
-        ----------
-        input_data_dictionary : dict
-            A dictionary containing processed input data, including training windows,
-            target training windows, and prediction arrays.
-        mode : str
-            The mode to apply for calculating the average. Options are:
-            - "weighted": Uses a weighted average based on the correlation per window.
-            - "simple": Calculates a simple mean across the selected cases.
-
-        Returns
-        -------
-        numpy.ndarray
-            A structured array containing the calculated data for each window. Each entry includes:
-            - Index flag (to distinguish best and worst cases).
-            - Average values of the training windows.
-            - Average values of the target training windows.
-            - Correlation mean for the selected cases.
-            - Mean absolute error (MAE) between the prediction and target averages.
-        """
         results = []
         for index, indices in enumerate([self.best_windows_index, self.worst_windows_index]):
             selected_cases = indices[:input_data_dictionary["num_cases"]]

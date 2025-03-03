@@ -83,39 +83,39 @@ def compute_distance_interface(input_data_dictionary,
                                metric: Union[str, Callable[[np.ndarray, np.ndarray], float]],
                                kwargs):
     """
-        Interface for computing pairwise distances using sktime metrics or custom callable functions.
+    Interface for computing pairwise distances using sktime metrics or custom callable functions.
 
-        This function attempts to calculate the distance or correlation between arrays using the specified
-        `metric`. It first tries to execute the metric as a sktime-compatible distance function. If that fails,
-        it falls back to using the `metric` as a user-defined callable function. Any errors during the process
-        are logged, and an exception is raised if all attempts fail.
+    This function attempts to calculate the distance or correlation between arrays using the specified
+    `metric`. It first tries to execute the metric as a sktime-compatible distance function. If that fails,
+    it falls back to using the `metric` as a user-defined callable function. Any errors during the process
+    are logged, and an exception is raised if all attempts fail.
 
-        Parameters
-        ----------
-        input_data_dictionary : dict
-            The dictionary containing preprocessed input data. It includes keys for `forecasted_window`,
-            `training_windows`, `windows_len`, and `components_len`.
-        metric : str or callable
-            A string or callable object used to compute the distance or correlation between two arrays.
-        kwargs : dict
-            Additional keyword arguments to pass to the metric. Default is an empty dictionary.
+    Parameters
+    ----------
+    input_data_dictionary : dict
+        The dictionary containing preprocessed input data. It includes keys for `forecasted_window`,
+        `training_windows`, `windows_len`, and `components_len`.
+    metric : str or callable
+        A string or callable object used to compute the distance or correlation between two arrays.
+    kwargs : dict
+        Additional keyword arguments to pass to the metric. Default is an empty dictionary.
 
-        Returns
-        -------
-        ndarray
-            A numpy array containing the computed distances or correlations for each component or window.
+    Returns
+    -------
+    ndarray
+        A numpy array containing the computed distances or correlations for each component or window.
 
-        Raises
-        ------
-        ValueError
-            If both the sktime metric and the custom callable fail to compute the distance.
-        TypeError
-            If `metric` is not a string or callable.
+    Raises
+    ------
+    ValueError
+        If both the sktime metric and the custom callable fail to compute the distance.
+    TypeError
+        If `metric` is not a string or callable.
 
-        Notes
-        -----
-        - The sktime metric interface is tried first. If it fails, the function attempts to execute `metric` as a callable.
-        - All errors are logged for debugging purposes.
+    Notes
+    -----
+    - The sktime metric interface is tried first. If it fails, the function attempts to execute `metric` as a callable.
+    - All errors are logged for debugging purposes.
     """
     correlation_per_window = np.array([])
 
