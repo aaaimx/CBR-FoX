@@ -103,6 +103,7 @@ patsy==0.5.6
 pillow==11.0.0
 platformdirs==4.3.6
 plotly==5.24.1
+pockets==0.9.1
 prometheus_client==0.21.0
 prompt_toolkit==3.0.48
 protobuf==4.25.5
@@ -125,6 +126,7 @@ retrying==1.3.4
 rfc3339-validator==0.1.4
 rfc3986-validator==0.1.1
 rich==13.9.2
+roman-numerals-py==3.1.0
 rpds-py==0.20.0
 scikit-base==0.8.3
 scikit-learn==1.5.2
