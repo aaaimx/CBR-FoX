@@ -1,10 +1,8 @@
-cbr\_fox.builder package
+builder
 ========================
 
-Submodules
-----------
 
-cbr\_fox.builder.cbr\_fox\_builder module
+cbr\_fox\_builder module
 -----------------------------------------
 
 .. automodule:: cbr_fox.builder.cbr_fox_builder

@@ -6,9 +6,11 @@
 CBR FoX Documentation
 =====================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Welcome to the **CBR-FoX** documentation.
+
+CBR-FoX is a Python library designed for Case-Based Reasoning (CBR) with advanced correlation methods, integration with time-series analysis, and visualization utilities.
+
+Use this documentation to learn about installation, features, and available modules.
 
 
 .. toctree::
@@ -16,6 +18,6 @@ documentation for details.
    :caption: Contents:
 
    overview
-   installation
    features
+   installation
    modules

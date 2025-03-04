@@ -1,10 +1,8 @@
-cbr\_fox.custom\_distance package
+custom\_distance
 =================================
 
-Submodules
-----------
 
-cbr\_fox.custom\_distance.cci\_distance module
+cci\_distance module
 ----------------------------------------------
 
 .. automodule:: cbr_fox.custom_distance.cci_distance

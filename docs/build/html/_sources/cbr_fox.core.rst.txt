@@ -1,10 +1,9 @@
-cbr\_fox.core package
+core
 =====================
 
-Submodules
-----------
 
-cbr\_fox.core.cbr\_fox module
+
+cbr\_fox module
 -----------------------------
 
 .. automodule:: cbr_fox.core.cbr_fox

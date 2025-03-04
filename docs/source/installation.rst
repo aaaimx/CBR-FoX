@@ -1,29 +1,35 @@
 Installation Guide
 ==================
 
-This section will guide you through installing **CBR-Fox** and its dependencies.
+This section will guide you through installing **CBR-FoX** and its dependencies.
 
-## Installing CBR-Fox
+Installing CBR-FoX
+-------------------
 
-### Install via pip (Recommended)
+Install via pip (Recommended)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 To install the latest stable version from PyPI, use:
 
 .. code-block:: sh
 
    pip install cbr-fox
 
-### Install from Source (Latest Development Version)
+Install from Source (Latest Development Version)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 To install the latest development version from GitHub:
 
 .. code-block:: sh
 
-   git clone https://github.com/yourrepo/cbr-fox.git
+   git clone https://github.com/aaaimx/CBRFoX.git
    cd cbr-fox
    pip install .
 
-## Dependencies
+Dependencies
+------------
 
-CBR-Fox requires the following libraries:
+CBR-FoX requires the following libraries:
 
 - **Python**: >=3.8
 - **Core Dependencies**:
@@ -39,7 +45,8 @@ If some dependencies are missing, you can install them manually:
 
    pip install numpy pandas scikit-learn sktime matplotlib
 
-## Optional Dependencies
+Optional Dependencies
+----------------------
 
 - **Jupyter Notebook**: If you plan to run examples in notebooks, install:
 
@@ -47,19 +54,21 @@ If some dependencies are missing, you can install them manually:
 
    pip install jupyter
 
-## Verifying the Installation
+Verifying the Installation
+--------------------------
 
-After installation, verify that CBR-Fox is correctly installed by running:
+After installation, verify that CBR-FoX is correctly installed by running:
 
 .. code-block:: sh
 
-   python -c "import cbr_fox; print(cbr_fox.__version__)"
+   python -c "import cbr_fox; print(cbr-fox.__version__)"
 
 If installed correctly, this should print the version number.
 
-## Troubleshooting Installation Issues
+Troubleshooting Installation Issues
+------------------------------------
 
-### `ModuleNotFoundError: No module named 'cbr_fox'`
+### `ModuleNotFoundError: No module named 'cbr-fox'`
 
 **Solution**: Ensure that the package is installed in the correct environment.
 
@@ -73,7 +82,7 @@ If missing, reinstall using:
 
    pip install cbr-fox
 
-### `ImportError: cannot import name 'CBRFox'`
+`ImportError: cannot import name 'CBRFox'`
 
 **Solution**: Ensure the installation was successful by running:
 
@@ -83,7 +92,8 @@ If missing, reinstall using:
 
 If the package is not listed, try reinstalling.
 
-### Compatibility Issues on Linux (Read the Docs)
+Compatibility Issues on Linux (Read the Docs)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If running on **Linux** (such as Read the Docs), ensure the correct TensorFlow version is installed:
 
@@ -99,4 +109,4 @@ If using **Intel versions** on Windows:
 
 For more help, check the **FAQ & Troubleshooting** section.
 
-Now that you have CBR-Fox installed, proceed to the **User Guide** for usage examples.
+Now that you have CBR-FoX installed, proceed to the **User Guide** for usage examples.

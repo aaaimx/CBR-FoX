@@ -1,10 +1,8 @@
-cbr\_fox.utils package
+utils
 ======================
 
-Submodules
-----------
 
-cbr\_fox.utils.plot\_utils module
+plot\_utils module
 ---------------------------------
 
 .. automodule:: cbr_fox.utils.plot_utils
