@@ -68,14 +68,15 @@ builder.visualize_pyplot(
 
 The following diagram illustrates the typical workflow of CBR-FoX, from retrieving AI model outputs to generating visual explanations.
 
-![Library Basic Usage Diagram](https://github.com/jerryperezperez/CBR-FoX/blob/develop/library_basic_usage_diagram.svg)
+![Library Basic Usage Diagram](https://github.com/aaaimx/CBRFoX/blob/develop/library_basic_usage_diagram.svg)
 
 ## Library File Relation Diagram
 
 The following diagram represents the core classes and their interactions within the library. The `cci_distance` file is utilized when an instance is created using the custom distance metric implemented in this script.
 
-![Library File Relation Diagram](https://github.com/jerryperezperez/CBR-FoX/blob/develop/file_relation_diagram.svg)
+![Library File Relation Diagram](https://github.com/aaaimx/CBRFoX/blob/develop/file_relation_diagram.svg)
 
 ---
-For further details, check out the official repository: [CBR-FoX on GitHub](https://github.com/jerryperezperez/CBR-FoX).
+For further details, check out the official documentation: [CBR-FoX on Read the Docs](https://cbr-fox.readthedocs.io/en/latest/overview.html).
+
 
