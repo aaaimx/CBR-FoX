@@ -1,13 +1,31 @@
-cbr\_fox.custom\_distance
+﻿cbr\_fox.custom\_distance
 =========================
 
 .. automodule:: cbr_fox.custom_distance
 
    
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
 .. rubric:: Modules
 
 .. autosummary::
    :toctree:
    :recursive:
 
-   cci_distance
+   cbr_fox.custom_distance.cci_distance
+

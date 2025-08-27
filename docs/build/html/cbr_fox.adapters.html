@@ -1,22 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>adapters &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=78028f55" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=d45e8c67"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,15 +29,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            Case-Based Reasoning Fox
+            <a href="index.html" class="icon icon-home"> Case-Based Reasoning Fox
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,6 +58,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 
         </div>
@@ -77,10 +74,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">CBR FoX API Documentation</a></li>
-          <li class="breadcrumb-item"><a href="cbr_fox.html">cbr_fox package</a></li>
-      <li class="breadcrumb-item active">adapters</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">CBR FoX API Documentation</a> &raquo;</li>
+          <li><a href="cbr_fox.html">cbr_fox package</a> &raquo;</li>
+      <li>adapters</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cbr_fox.adapters.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,103 +88,9 @@
            <div itemprop="articleBody">
              
   <section id="adapters">
-<h1>adapters<a class="headerlink" href="#adapters" title="Link to this heading"></a></h1>
-<section id="module-cbr_fox.adapters.sktime_interface">
-<span id="sktime-interface-module"></span><h2>sktime_interface module<a class="headerlink" href="#module-cbr_fox.adapters.sktime_interface" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="cbr_fox.adapters.sktime_interface.compute_distance_interface">
-<span class="sig-prename descclassname"><span class="pre">cbr_fox.adapters.sktime_interface.</span></span><span class="sig-name descname"><span class="pre">compute_distance_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data_dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/adapters/sktime_interface.html#compute_distance_interface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.adapters.sktime_interface.compute_distance_interface" title="Link to this definition"></a></dt>
-<dd><p>Interface for computing pairwise distances using sktime metrics or custom callable functions.</p>
-<p>This function attempts to calculate the distance or correlation between arrays using the specified
-<cite>metric</cite>. It first tries to execute the metric as a sktime-compatible distance function. If that fails,
-it falls back to using the <cite>metric</cite> as a user-defined callable function. Any errors during the process
-are logged, and an exception is raised if all attempts fail.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data_dictionary</strong> (<em>dict</em>) – The dictionary containing preprocessed input data. It includes keys for <cite>forecasted_window</cite>,
-<cite>training_windows</cite>, <cite>windows_len</cite>, and <cite>components_len</cite>.</p></li>
-<li><p><strong>metric</strong> (<em>str</em><em> or </em><em>callable</em>) – A string or callable object used to compute the distance or correlation between two arrays.</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em>) – Additional keyword arguments to pass to the metric. Default is an empty dictionary.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A numpy array containing the computed distances or correlations for each component or window.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ValueError</strong> – If both the sktime metric and the custom callable fail to compute the distance.</p></li>
-<li><p><strong>TypeError</strong> – If <cite>metric</cite> is not a string or callable.</p></li>
-</ul>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>The sktime metric interface is tried first. If it fails, the function attempts to execute <cite>metric</cite> as a callable.</p></li>
-<li><p>All errors are logged for debugging purposes.</p></li>
-</ul>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cbr_fox.adapters.sktime_interface.distance_sktime_interface">
-<span class="sig-prename descclassname"><span class="pre">cbr_fox.adapters.sktime_interface.</span></span><span class="sig-name descname"><span class="pre">distance_sktime_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data_dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/adapters/sktime_interface.html#distance_sktime_interface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.adapters.sktime_interface.distance_sktime_interface" title="Link to this definition"></a></dt>
-<dd><p>Interface for computing pairwise distances using a custom or built-in sktime metric.</p>
-<p>This function calculates the correlation or distance between two arrays for each component of each window.
-It allows the use of either sktime’s built-in distance metrics or user-defined custom metrics,
-offering flexibility in the analysis. If the computation results in any NaN values, the function
-logs an error and raises an exception to prevent invalid further calculations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data_dictionary</strong> (<em>dict</em>) – Dictionary containing the input data. The dictionary should contain keys for <cite>forecasted_window</cite>,
-<cite>training_windows</cite>, <cite>windows_len</cite>, and <cite>components_len</cite>.</p></li>
-<li><p><strong>metric</strong> (<em>str</em><em> or </em><em>callable</em>) – The metric to be used for computing distances. This can either be a built-in sktime metric or a custom function.</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments passed to the metric function (default is an empty dictionary).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A numpy array containing the pairwise distances or correlations between the forecasted and training windows
-for each component.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If the computation results in NaN values, an error will be raised.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="cbr_fox.adapters.sktime_interface.pearson">
-<span class="sig-prename descclassname"><span class="pre">cbr_fox.adapters.sktime_interface.</span></span><span class="sig-name descname"><span class="pre">pearson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/adapters/sktime_interface.html#pearson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.adapters.sktime_interface.pearson" title="Link to this definition"></a></dt>
-<dd><p>Computes the Pearson correlation coefficient between two arrays.</p>
-<p>This function uses NumPy’s <cite>corrcoef</cite> method to calculate the Pearson correlation matrix
-and extracts the correlation coefficient between <cite>x</cite> and <cite>y</cite>. The value returned is a measure
-of linear correlation between the two input arrays, ranging from -1 (perfect negative correlation)
-to 1 (perfect positive correlation).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>array_like</em>) – First input array, can be any shape that is compatible with NumPy’s <cite>corrcoef</cite> method.</p></li>
-<li><p><strong>y</strong> (<em>array_like</em>) – Second input array, should have the same shape as <cite>x</cite>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Pearson correlation coefficient between <cite>x</cite> and <cite>y</cite>.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>The function uses NumPy’s <cite>corrcoef</cite> which computes the correlation matrix, and the coefficient
-is extracted from this matrix.</p>
-</dd></dl>
-
+<h1>adapters<a class="headerlink" href="#adapters" title="Permalink to this heading"></a></h1>
+<section id="sktime-interface-module">
+<h2>sktime_interface module<a class="headerlink" href="#sktime-interface-module" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

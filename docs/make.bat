@@ -1,4 +1,4 @@
-@ECHO OFF
+mkdocs@ECHO OFF
 
 pushd %~dp0
 

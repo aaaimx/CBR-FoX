@@ -1,22 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>core &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=78028f55" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=d45e8c67"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,15 +29,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            Case-Based Reasoning Fox
+            <a href="index.html" class="icon icon-home"> Case-Based Reasoning Fox
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,6 +58,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 
         </div>
@@ -77,10 +74,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">CBR FoX API Documentation</a></li>
-          <li class="breadcrumb-item"><a href="cbr_fox.html">cbr_fox package</a></li>
-      <li class="breadcrumb-item active">core</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">CBR FoX API Documentation</a> &raquo;</li>
+          <li><a href="cbr_fox.html">cbr_fox package</a> &raquo;</li>
+      <li>core</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cbr_fox.core.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,143 +88,9 @@
            <div itemprop="articleBody">
              
   <section id="core">
-<h1>core<a class="headerlink" href="#core" title="Link to this heading"></a></h1>
-<section id="module-cbr_fox.core.cbr_fox">
-<span id="cbr-fox-module"></span><h2>cbr_fox module<a class="headerlink" href="#module-cbr_fox.core.cbr_fox" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.cbr_fox">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cbr_fox.core.cbr_fox.</span></span><span class="sig-name descname"><span class="pre">cbr_fox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dtw'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothness_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/core/cbr_fox.html#cbr_fox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.cbr_fox" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Core class to perform calculations and analysis at technique-level depth.</p>
-<p>This class is used to preprocess the provided input data for performing correlation and find the best cases. Its}
-functionality follows classic AI library guidelines and standards such as scikit-learn and keras.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>metric</strong> (<em>str</em><em> or </em><em>callable</em><em>, </em><em>optional</em>) – The metric to use for correlation (default is “dtw”).</p></li>
-<li><p><strong>smoothness_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – The smoothness factor for preprocessing (default is 0.2).</p></li>
-<li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional keyword arguments for customization.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.cbr_fox.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothness_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/core/cbr_fox.html#cbr_fox.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.cbr_fox.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initializes the cbr_fox class with specified parameters.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis">
-<span class="sig-name descname"><span class="pre">calculate_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_data_dictionary</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/core/cbr_fox.html#cbr_fox.calculate_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis" title="Link to this definition"></a></dt>
-<dd><p>Compute analysis results and store them in a record array for reporting and visualization.</p>
-<p>This method processes data for the specified indices, extracting relevant information such as
-training windows, target windows, correlation values, and Mean Absolute Error (MAE). The results
-are stored in a structured record array.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>indexes</strong> (<em>list</em><em> of </em><em>int</em>) – A list of indices corresponding to valleys and peaks in the non-smoothed correlation array.</p></li>
-<li><p><strong>input_data_dictionary</strong> (<em>dict</em>) – A dictionary containing preprocessed input data, including training and target windows.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A structured record array containing the following fields:
-- Index: The index of the data point.
-- Training window: The array representing the training window.
-- Target window: The array representing the target window.
-- Correlation value: The correlation value from the non-smoothed correlation array.
-- MAE: The Mean Absolute Error (MAE) value comparing the target window and the prediction.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.recarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis_combined">
-<span class="sig-name descname"><span class="pre">calculate_analysis_combined</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data_dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/core/cbr_fox.html#cbr_fox.calculate_analysis_combined"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis_combined" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.cbr_fox.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_windows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_training_windows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forecasted_window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/core/cbr_fox.html#cbr_fox.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.cbr_fox.fit" title="Link to this definition"></a></dt>
-<dd><p>Perform correlation analysis and identify cases based on the provided data.</p>
-<p>This method analyzes the provided training windows, calculates the correlation using
-the selected metric, and performs CBR analysis to identify cases based on the data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>training_windows</strong> (<em>numpy.ndarray</em>) – A 3D array of training windows with shape (n_windows, window_len, components_len),
-where <cite>n_windows</cite> is the number of windows, <cite>window_len</cite> is the length of each window,
-and <cite>components_len</cite> is the number of features per timestep.</p></li>
-<li><p><strong>target_training_windows</strong> (<em>list</em>) – A list of target windows corresponding to each training window.</p></li>
-<li><p><strong>forecasted_window</strong> (<em>list</em>) – A window used for forecasting and making predictions.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>This method performs calculations for correlation analysis and case-based reasoning.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report">
-<span class="sig-name descname"><span class="pre">get_analysis_report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/core/cbr_fox.html#cbr_fox.get_analysis_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report" title="Link to this definition"></a></dt>
-<dd><p>Access the analysis report containing the best cases based on the analysis.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A DataFrame containing the best cases and their respective information based on the analysis.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>pandas.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report_combined">
-<span class="sig-name descname"><span class="pre">get_analysis_report_combined</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/core/cbr_fox.html#cbr_fox.get_analysis_report_combined"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report_combined" title="Link to this definition"></a></dt>
-<dd><p>Access the combined analysis report containing the best cases based on the combined analysis.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A DataFrame containing the combined best cases and their respective information based on the analysis.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>pandas.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.cbr_fox.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/core/cbr_fox.html#cbr_fox.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.cbr_fox.predict" title="Link to this definition"></a></dt>
-<dd><p>Perform analysis to identify the best cases based on the provided prediction.</p>
-<p>This method computes the statistics to identify the best cases compared to the provided
-prediction and returns results that can be accessed through corresponding methods.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>prediction</strong> (<em>numpy.ndarray</em>) – The prediction generated by the AI model.</p></li>
-<li><p><strong>num_cases</strong> (<em>int</em>) – The maximum number of cases to identify.</p></li>
-<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – A string to specify the mode for the combined case option, which can be either ‘simple’ or ‘combined’.
-The default is “simple”.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>This method performs the analysis, and results can be accessed via the corresponding methods.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+<h1>core<a class="headerlink" href="#core" title="Permalink to this heading"></a></h1>
+<section id="cbr-fox-module">
+<h2>cbr_fox module<a class="headerlink" href="#cbr-fox-module" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 
