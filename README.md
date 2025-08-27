@@ -16,7 +16,7 @@ To install CBR-FoX and its dependencies, follow these steps:
 ### Install via GitHub
 ```bash
 # Clone the repository
-git clone https://github.com/aaaimx/CBRFoX.git
+git clone https://github.com/aaaimx/CBR-FoX.git
 cd CBR-FoX
 
 # Install required dependencies

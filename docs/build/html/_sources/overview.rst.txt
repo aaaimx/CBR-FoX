@@ -7,7 +7,7 @@ What is Case-Based Reasoning (CBR)?
 -----------------------------------
 CBR is an AI approach where past experiences (cases) are used to solve new problems. It is widely applied in **recommendation systems, decision support, predictive analytics, and anomaly detection**.
 
-Why Use CBR-Fox?
+Why Use CBR-FoX?
 ----------------
 - **Efficient Case Retrieval**: Uses multiple similarity metrics to find the most relevant cases.
 - **Customizable Distance Functions**: Define your own case similarity measures.
