@@ -17,7 +17,7 @@ To install CBR-FoX and its dependencies, follow these steps:
 ```bash
 # Clone the repository
 git clone https://github.com/aaaimx/CBRFoX.git
-cd CBR-FoX
+cd CBRFoX
 
 # Install required dependencies
 pip install -r requirements.txt
@@ -78,5 +78,6 @@ The following diagram represents the core classes and their interactions within 
 
 ---
 For further details, check out the official documentation: [CBR-FoX on Read the Docs](https://cbr-fox.readthedocs.io/en/latest/overview.html).
+
 
 
