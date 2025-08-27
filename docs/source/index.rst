@@ -21,3 +21,4 @@ Use this documentation to learn about installation, features, and available modu
    features
    installation
    modules
+   examples

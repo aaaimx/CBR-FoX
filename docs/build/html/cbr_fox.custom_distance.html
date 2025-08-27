@@ -1,22 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>custom_distance &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=78028f55" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=d45e8c67"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,15 +29,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            Case-Based Reasoning Fox
+            <a href="index.html" class="icon icon-home"> Case-Based Reasoning Fox
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,6 +58,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 </ul>
 
         </div>
@@ -77,10 +74,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">CBR FoX API Documentation</a></li>
-          <li class="breadcrumb-item"><a href="cbr_fox.html">cbr_fox package</a></li>
-      <li class="breadcrumb-item active">custom_distance</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">CBR FoX API Documentation</a> &raquo;</li>
+          <li><a href="cbr_fox.html">cbr_fox package</a> &raquo;</li>
+      <li>custom_distance</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cbr_fox.custom_distance.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,38 +88,9 @@
            <div itemprop="articleBody">
              
   <section id="custom-distance">
-<h1>custom_distance<a class="headerlink" href="#custom-distance" title="Link to this heading"></a></h1>
-<section id="module-cbr_fox.custom_distance.cci_distance">
-<span id="cci-distance-module"></span><h2>cci_distance module<a class="headerlink" href="#module-cbr_fox.custom_distance.cci_distance" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="cbr_fox.custom_distance.cci_distance.cci_distance">
-<span class="sig-prename descclassname"><span class="pre">cbr_fox.custom_distance.cci_distance.</span></span><span class="sig-name descname"><span class="pre">cci_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data_dictionary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">punishedSumFactor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cbr_fox/custom_distance/cci_distance.html#cci_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.custom_distance.cci_distance.cci_distance" title="Link to this definition"></a></dt>
-<dd><p>Compute a combined correlation and distance measure using Pearson correlation
-and Euclidean distance, with a normalization factor applied.</p>
-<p>This function first computes the Pearson correlation and the Euclidean distance
-between training windows and target windows using the <cite>sktime_interface</cite>. Then,
-it normalizes the Euclidean distance and combines both the correlation and
-distance measures into a final value. The result is further scaled and returned.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data_dictionary</strong> (<em>dict</em>) – A dictionary containing processed input data, including training windows,
-target training windows, and any other necessary components for distance
-calculations.</p></li>
-<li><p><strong>punishedSumFactor</strong> (<em>float</em>) – A factor applied to the sum of the normalized correlation to adjust the
-final computed correlation.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A 2D array of shape (n_windows, 1) representing the normalized and scaled
-correlation per window.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
+<h1>custom_distance<a class="headerlink" href="#custom-distance" title="Permalink to this heading"></a></h1>
+<section id="cci-distance-module">
+<h2>cci_distance module<a class="headerlink" href="#cci-distance-module" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

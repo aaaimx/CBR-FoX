@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="utils" href="cbr_fox.utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Case-Based Reasoning Fox
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">CBR FoX API Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bitcoin-prediction">Bitcoin Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#import-necessary-libraries">1. Import Necessary Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-the-saved-data">2. Load the Saved Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieve-variables-from-the-data">3. Retrieve Variables from the Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-cbr-fox-techniques">4. Define CBR-FoX Techniques</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-and-train-the-cbr-fox-model">5. Build and Train the CBR-FoX Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-predictions">6. Make Predictions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visualize-results">7. Visualize Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Case-Based Reasoning Fox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h1>
+<p>These are a set of examples to illustrate the library’s usage and how to get the most out of it.</p>
+<section id="bitcoin-prediction">
+<h2>Bitcoin Prediction<a class="headerlink" href="#bitcoin-prediction" title="Permalink to this heading"></a></h2>
+<section id="import-necessary-libraries">
+<h3>1. Import Necessary Libraries<a class="headerlink" href="#import-necessary-libraries" title="Permalink to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Example code</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cbr_fox.builder.cbr_fox_builder</span> <span class="kn">import</span> <span class="n">cbr_fox_builder</span>
+<span class="kn">from</span> <span class="nn">cbr_fox.core</span> <span class="kn">import</span> <span class="n">cbr_fox</span>
+<span class="kn">from</span> <span class="nn">cbr_fox.custom_distance.cci_distance</span> <span class="kn">import</span> <span class="n">cci_distance</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="load-the-saved-data">
+<h3>2. Load the Saved Data<a class="headerlink" href="#load-the-saved-data" title="Permalink to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Code snippet example to load data from a npz file</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the saved data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../examples/Bitcoin_prediction/Bitcoin_Prediction.npz&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="retrieve-variables-from-the-data">
+<h3>3. Retrieve Variables from the Data<a class="headerlink" href="#retrieve-variables-from-the-data" title="Permalink to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Code snippet example to fecth data from a npz file</span><a class="headerlink" href="#id3" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve each variable</span>
+<span class="n">training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;training_windows&#39;</span><span class="p">]</span>
+<span class="n">forecasted_window</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;forecasted_window&#39;</span><span class="p">]</span>
+<span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;target_training_windows&#39;</span><span class="p">]</span>
+<span class="n">windowsLen</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;windowsLen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>  <span class="c1"># Extract single value from array</span>
+<span class="n">componentsLen</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;componentsLen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">windowLen</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;windowLen&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="define-cbr-fox-techniques">
+<h3>4. Define CBR-FoX Techniques<a class="headerlink" href="#define-cbr-fox-techniques" title="Permalink to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Code snippet example to define techniques to work with</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the CBR-FoX techniques with custom distance metrics</span>
+<span class="n">techniques</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">cbr_fox</span><span class="o">.</span><span class="n">cbr_fox</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">cci_distance</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;punishedSumFactor&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+    <span class="c1">#cbr_fox.cbr_fox(metric=&quot;edr&quot;),</span>
+    <span class="c1">#cbr_fox.cbr_fox(metric=&quot;dtw&quot;),</span>
+    <span class="c1">#cbr_fox.cbr_fox(metric=&quot;twe&quot;)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="build-and-train-the-cbr-fox-model">
+<h3>5. Build and Train the CBR-FoX Model<a class="headerlink" href="#build-and-train-the-cbr-fox-model" title="Permalink to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Code snippet example to build and train the model with the loaded data and the defined techniques</span><a class="headerlink" href="#id5" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize the CBR-FoX builder</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">cbr_fox_builder</span><span class="p">(</span><span class="n">techniques</span><span class="p">)</span>
+
+<span class="c1"># Train the model with the provided data</span>
+<span class="n">p</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">training_windows</span><span class="p">,</span>
+      <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">target_training_windows</span><span class="p">,</span>
+      <span class="n">forecasted_window</span> <span class="o">=</span> <span class="n">forecasted_window</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Technique execution output</span><a class="headerlink" href="#id6" title="Permalink to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2025-08-27 12:56:19,487 - INFO - Analizando conjunto de datos
+2025-08-27 12:56:19,488 - INFO - Calculando Correlación
+Windows procesadas:   0%|          | 0/2774 [00:00&lt;?, ?it/s]2025-08-27 12:56:19,493 - INFO - Aplicando Correlación de Pearson
+Windows procesadas:   0%|          | 0/2774 [00:00&lt;?, ?it/s]
+2025-08-27 12:56:19,494 - INFO - Aplicando Correlación de Pearson
+Windows procesadas:   0%|          | 0/2774 [00:00&lt;?, ?it/s]
+Windows procesadas: 100%|██████████| 2774/2774 [00:01&lt;00:00, 2475.70it/s]
+2025-08-27 12:56:20,618 - INFO - Aplicando Correlación Euclidiana
+Windows procesadas: 100%|██████████| 2774/2774 [00:00&lt;00:00, 12825.47it/s]
+2025-08-27 12:56:20,841 - INFO - Computando análisis de CBR
+2025-08-27 12:56:20,842 - INFO - Suavizando Correlación
+2025-08-27 12:56:21,049 - INFO - Extrayendo crestas y valles
+2025-08-27 12:56:21,050 - INFO - Recuperando segmentos convexos y cóncavos
+2025-08-27 12:56:21,051 - INFO - Recuperando índices originales de correlación
+Segmentos cóncavos: 100%|██████████| 5/5 [00:00&lt;?, ?it/s]
+Segmentos convexos: 100%|██████████| 5/5 [00:00&lt;00:00, 4992.03it/s]
+2025-08-27 12:56:21,055 - INFO - Análisis finalizado
+</pre></div>
+</div>
+</div>
+</section>
+<section id="make-predictions">
+<h3>6. Make Predictions<a class="headerlink" href="#make-predictions" title="Permalink to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Code snippet example to make predictions and generate explanations</span><a class="headerlink" href="#id7" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make predictions and generate explanations</span>
+<span class="n">p</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">prediction</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Terminal output of the prediction process</span><a class="headerlink" href="#id8" title="Permalink to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2025-08-27 12:56:23,598 - INFO - Generando reporte de análisis
+</pre></div>
+</div>
+</div>
+</section>
+<section id="visualize-results">
+<h3>7. Visualize Results<a class="headerlink" href="#visualize-results" title="Permalink to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Code snippet example to visualize the results</span><a class="headerlink" href="#id9" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize the predictions and results</span>
+<span class="n">p</span><span class="o">.</span><span class="n">visualize_pyplot</span><span class="p">(</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;--d&#39;</span><span class="p">,</span>
+    <span class="n">scatter_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
+    <span class="n">xtick_rotation</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;nombre&quot;</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;y&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<img alt="Output figure 1" class="align-center" src="_images/bitcoin_image_1.png" />
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cbr_fox.utils.html" class="btn btn-neutral float-left" title="utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, AAAIMX.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
