@@ -1,22 +1,22 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Examples &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=78028f55" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Case-Based Reasoning Fox
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Case-Based Reasoning Fox
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -99,8 +103,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Examples</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -111,35 +115,35 @@
            <div itemprop="articleBody">
              
   <section id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h1>
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
 <p>These examples illustrate how to use the CBR-FoX library across different datasets and scenarios, showing the full workflow from loading data to visualization.</p>
 <section id="bitcoin-prediction">
-<h2>Bitcoin Prediction<a class="headerlink" href="#bitcoin-prediction" title="Permalink to this heading"></a></h2>
+<h2>Bitcoin Prediction<a class="headerlink" href="#bitcoin-prediction" title="Link to this heading"></a></h2>
 <section id="import-necessary-libraries">
-<h3>1. Import Necessary Libraries<a class="headerlink" href="#import-necessary-libraries" title="Permalink to this heading"></a></h3>
+<h3>1. Import Necessary Libraries<a class="headerlink" href="#import-necessary-libraries" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Import required modules and libraries</span><a class="headerlink" href="#id19" title="Permalink to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cbr_fox.builder.cbr_fox_builder</span> <span class="kn">import</span> <span class="n">cbr_fox_builder</span>
-<span class="kn">from</span> <span class="nn">cbr_fox.core</span> <span class="kn">import</span> <span class="n">cbr_fox</span>
-<span class="kn">from</span> <span class="nn">cbr_fox.custom_distance.cci_distance</span> <span class="kn">import</span> <span class="n">cci_distance</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="code-block-caption"><span class="caption-text">Import required modules and libraries</span><a class="headerlink" href="#id19" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cbr_fox.builder.cbr_fox_builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">cbr_fox_builder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cbr_fox.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">cbr_fox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cbr_fox.custom_distance.cci_distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">cci_distance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="load-the-saved-data">
-<h3>2. Load the Saved Data<a class="headerlink" href="#load-the-saved-data" title="Permalink to this heading"></a></h3>
+<h3>2. Load the Saved Data<a class="headerlink" href="#load-the-saved-data" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">Load preprocessed Bitcoin prediction data from a npz file</span><a class="headerlink" href="#id20" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Load preprocessed Bitcoin prediction data from a npz file</span><a class="headerlink" href="#id20" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../examples/Bitcoin_prediction/Bitcoin_Prediction.npz&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="retrieve-variables-from-the-data">
-<h3>3. Retrieve Variables from the Data<a class="headerlink" href="#retrieve-variables-from-the-data" title="Permalink to this heading"></a></h3>
+<h3>3. Retrieve Variables from the Data<a class="headerlink" href="#retrieve-variables-from-the-data" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">Extract relevant variables for model training and prediction</span><a class="headerlink" href="#id21" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Extract relevant variables for model training and prediction</span><a class="headerlink" href="#id21" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;training_windows&#39;</span><span class="p">]</span>
 <span class="n">forecasted_window</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;forecasted_window&#39;</span><span class="p">]</span>
 <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;target_training_windows&#39;</span><span class="p">]</span>
@@ -152,9 +156,9 @@
 </div>
 </section>
 <section id="define-cbr-fox-techniques">
-<h3>4. Define CBR-FoX Techniques<a class="headerlink" href="#define-cbr-fox-techniques" title="Permalink to this heading"></a></h3>
+<h3>4. Define CBR-FoX Techniques<a class="headerlink" href="#define-cbr-fox-techniques" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">Set up the CBR-FoX techniques using a custom distance metric</span><a class="headerlink" href="#id22" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Set up the CBR-FoX techniques using a custom distance metric</span><a class="headerlink" href="#id22" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">techniques</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">cbr_fox</span><span class="o">.</span><span class="n">cbr_fox</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">cci_distance</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;punishedSumFactor&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
 <span class="p">]</span>
@@ -163,9 +167,9 @@
 </div>
 </section>
 <section id="build-and-train-the-cbr-fox-model">
-<h3>5. Build and Train the CBR-FoX Model<a class="headerlink" href="#build-and-train-the-cbr-fox-model" title="Permalink to this heading"></a></h3>
+<h3>5. Build and Train the CBR-FoX Model<a class="headerlink" href="#build-and-train-the-cbr-fox-model" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">Initialize the model builder and train on the loaded data</span><a class="headerlink" href="#id23" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Initialize the model builder and train on the loaded data</span><a class="headerlink" href="#id23" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">cbr_fox_builder</span><span class="p">(</span><span class="n">techniques</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">training_windows</span><span class="p">,</span>
       <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">target_training_windows</span><span class="p">,</span>
@@ -174,7 +178,7 @@
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">Sample output from the model training process</span><a class="headerlink" href="#id24" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Sample output from the model training process</span><a class="headerlink" href="#id24" title="Link to this code"></a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2025-08-27 12:56:19,487 - INFO - Analizando conjunto de datos
 ...
 2025-08-27 12:56:21,055 - INFO - Análisis finalizado
@@ -183,24 +187,24 @@
 </div>
 </section>
 <section id="make-predictions">
-<h3>6. Make Predictions<a class="headerlink" href="#make-predictions" title="Permalink to this heading"></a></h3>
+<h3>6. Make Predictions<a class="headerlink" href="#make-predictions" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">Generate predictions and obtain explanations for the forecasted data</span><a class="headerlink" href="#id25" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Generate predictions and obtain explanations for the forecasted data</span><a class="headerlink" href="#id25" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">prediction</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">Sample terminal output showing prediction report</span><a class="headerlink" href="#id26" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Sample terminal output showing prediction report</span><a class="headerlink" href="#id26" title="Link to this code"></a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2025-08-27 12:56:23,598 - INFO - Generando reporte de análisis
 </pre></div>
 </div>
 </div>
 </section>
 <section id="visualize-results">
-<h3>7. Visualize Results<a class="headerlink" href="#visualize-results" title="Permalink to this heading"></a></h3>
+<h3>7. Visualize Results<a class="headerlink" href="#visualize-results" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Visualize predictions using a line plot with scatter markers</span><a class="headerlink" href="#id27" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Visualize predictions using a line plot with scatter markers</span><a class="headerlink" href="#id27" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">visualize_pyplot</span><span class="p">(</span>
     <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;--d&#39;</span><span class="p">,</span>
     <span class="n">scatter_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
@@ -216,20 +220,20 @@
 </section>
 </section>
 <section id="walmart-sales-prediction">
-<h2>Walmart Sales Prediction<a class="headerlink" href="#walmart-sales-prediction" title="Permalink to this heading"></a></h2>
+<h2>Walmart Sales Prediction<a class="headerlink" href="#walmart-sales-prediction" title="Link to this heading"></a></h2>
 <section id="id1">
-<h3>1. Load the Saved Data<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<h3>1. Load the Saved Data<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">Load Walmart sales data from a npz file</span><a class="headerlink" href="#id28" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Load Walmart sales data from a npz file</span><a class="headerlink" href="#id28" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;Walmart_Sales.npz&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id2">
-<h3>2. Retrieve Variables from the Data<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<h3>2. Retrieve Variables from the Data<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id29">
-<div class="code-block-caption"><span class="caption-text">Extract variables required for training and forecasting</span><a class="headerlink" href="#id29" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Extract variables required for training and forecasting</span><a class="headerlink" href="#id29" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;training_windows&#39;</span><span class="p">]</span>
 <span class="n">forecasted_window</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;forecasted_window&#39;</span><span class="p">]</span>
 <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;target_training_windows&#39;</span><span class="p">]</span>
@@ -242,9 +246,9 @@
 </div>
 </section>
 <section id="id3">
-<h3>3. Define CBR-FoX Techniques<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<h3>3. Define CBR-FoX Techniques<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id30">
-<div class="code-block-caption"><span class="caption-text">Set up CBR-FoX technique with CCI distance metric</span><a class="headerlink" href="#id30" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Set up CBR-FoX technique with CCI distance metric</span><a class="headerlink" href="#id30" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">techniques</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">cbr_fox</span><span class="o">.</span><span class="n">cbr_fox</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">cci_distance</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;punishedSumFactor&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
 <span class="p">]</span>
@@ -253,9 +257,9 @@
 </div>
 </section>
 <section id="id4">
-<h3>4. Build and Train the CBR-FoX Model<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<h3>4. Build and Train the CBR-FoX Model<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id31">
-<div class="code-block-caption"><span class="caption-text">Initialize the model builder and train on Walmart data</span><a class="headerlink" href="#id31" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Initialize the model builder and train on Walmart data</span><a class="headerlink" href="#id31" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">cbr_fox_builder</span><span class="p">(</span><span class="n">techniques</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">training_windows</span><span class="p">,</span>
       <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">target_training_windows</span><span class="p">,</span>
@@ -265,18 +269,18 @@
 </div>
 </section>
 <section id="id5">
-<h3>5. Make Predictions<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<h3>5. Make Predictions<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id32">
-<div class="code-block-caption"><span class="caption-text">Generate predictions for Walmart sales</span><a class="headerlink" href="#id32" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Generate predictions for Walmart sales</span><a class="headerlink" href="#id32" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">prediction</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id6">
-<h3>6. Visualize Results<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<h3>6. Visualize Results<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id33">
-<div class="code-block-caption"><span class="caption-text">Plot Walmart Sales predictions with customized markers</span><a class="headerlink" href="#id33" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Plot Walmart Sales predictions with customized markers</span><a class="headerlink" href="#id33" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">visualize_pyplot</span><span class="p">(</span>
     <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
     <span class="n">legend</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -289,24 +293,24 @@
 </pre></div>
 </div>
 </div>
-<img alt="Walmart Sales output figure" class="align-center" src="_static/walmart_sales_image.png" />
+<img alt="Walmart Sales output figure" class="align-center" src="_images/walmart_sales_image.png" />
 </section>
 </section>
 <section id="romania-power-usage-prediction">
-<h2>Romania Power Usage Prediction<a class="headerlink" href="#romania-power-usage-prediction" title="Permalink to this heading"></a></h2>
+<h2>Romania Power Usage Prediction<a class="headerlink" href="#romania-power-usage-prediction" title="Link to this heading"></a></h2>
 <section id="id7">
-<h3>1. Load the Saved Data<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<h3>1. Load the Saved Data<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id34">
-<div class="code-block-caption"><span class="caption-text">Load Romania Power Usage dataset from 2016-2020</span><a class="headerlink" href="#id34" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Load Romania Power Usage dataset from 2016-2020</span><a class="headerlink" href="#id34" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;Romania_Power_Usage_Analysis_2016_2020_CBR-FoX.npz&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id8">
-<h3>2. Retrieve Variables from the Data<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<h3>2. Retrieve Variables from the Data<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id35">
-<div class="code-block-caption"><span class="caption-text">Extract training and prediction variables</span><a class="headerlink" href="#id35" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Extract training and prediction variables</span><a class="headerlink" href="#id35" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;training_windows&#39;</span><span class="p">]</span>
 <span class="n">forecasted_window</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;forecasted_window&#39;</span><span class="p">]</span>
 <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;target_training_windows&#39;</span><span class="p">]</span>
@@ -319,9 +323,9 @@
 </div>
 </section>
 <section id="id9">
-<h3>3. Define CBR-FoX Techniques<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<h3>3. Define CBR-FoX Techniques<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id36">
-<div class="code-block-caption"><span class="caption-text">Define multiple techniques with different punishedSumFactor values</span><a class="headerlink" href="#id36" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Define multiple techniques with different punishedSumFactor values</span><a class="headerlink" href="#id36" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">techniques</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">cbr_fox</span><span class="o">.</span><span class="n">cbr_fox</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">cci_distance</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;punishedSumFactor&quot;</span><span class="p">:</span><span class="mf">0.5</span><span class="p">}),</span>
     <span class="n">cbr_fox</span><span class="o">.</span><span class="n">cbr_fox</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">cci_distance</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;punishedSumFactor&quot;</span><span class="p">:</span><span class="mf">0.7</span><span class="p">})</span>
@@ -331,9 +335,9 @@
 </div>
 </section>
 <section id="id10">
-<h3>4. Build and Train the CBR-FoX Model<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<h3>4. Build and Train the CBR-FoX Model<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id37">
-<div class="code-block-caption"><span class="caption-text">Train the model with multiple techniques on Romania dataset</span><a class="headerlink" href="#id37" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Train the model with multiple techniques on Romania dataset</span><a class="headerlink" href="#id37" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">cbr_fox_builder</span><span class="p">(</span><span class="n">techniques</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">training_windows</span><span class="p">,</span>
       <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">target_training_windows</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
@@ -343,18 +347,18 @@
 </div>
 </section>
 <section id="id11">
-<h3>5. Make Predictions<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
+<h3>5. Make Predictions<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id38">
-<div class="code-block-caption"><span class="caption-text">Generate predictions with 5 forecast cases</span><a class="headerlink" href="#id38" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Generate predictions with 5 forecast cases</span><a class="headerlink" href="#id38" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">prediction</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id12">
-<h3>6. Visualize Results<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
+<h3>6. Visualize Results<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id39">
-<div class="code-block-caption"><span class="caption-text">Visualize predictions with line plot and scatter markers</span><a class="headerlink" href="#id39" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Visualize predictions with line plot and scatter markers</span><a class="headerlink" href="#id39" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">visualize_pyplot</span><span class="p">(</span>
     <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;--d&#39;</span><span class="p">,</span>
     <span class="n">scatter_params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
@@ -366,24 +370,24 @@
 </pre></div>
 </div>
 </div>
-<img alt="Romania Power Usage output figure" class="align-center" src="_static/romania_power_usage_image.png" />
+<img alt="Romania Power Usage output figure" class="align-center" src="_images/romania_power_usage_image.png" />
 </section>
 </section>
 <section id="rainfall-prediction">
-<h2>Rainfall Prediction<a class="headerlink" href="#rainfall-prediction" title="Permalink to this heading"></a></h2>
+<h2>Rainfall Prediction<a class="headerlink" href="#rainfall-prediction" title="Link to this heading"></a></h2>
 <section id="id13">
-<h3>1. Load the Saved Data<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
+<h3>1. Load the Saved Data<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id40">
-<div class="code-block-caption"><span class="caption-text">Load Rainfall prediction dataset from npz file</span><a class="headerlink" href="#id40" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Load Rainfall prediction dataset from npz file</span><a class="headerlink" href="#id40" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;Rainfall_Prediction.npz&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id14">
-<h3>2. Retrieve Variables from the Data<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
+<h3>2. Retrieve Variables from the Data<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id41">
-<div class="code-block-caption"><span class="caption-text">Extract variables for model training and forecasting</span><a class="headerlink" href="#id41" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Extract variables for model training and forecasting</span><a class="headerlink" href="#id41" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;training_windows&#39;</span><span class="p">]</span>
 <span class="n">forecasted_window</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;forecasted_window&#39;</span><span class="p">]</span>
 <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;target_training_windows&#39;</span><span class="p">]</span>
@@ -396,9 +400,9 @@
 </div>
 </section>
 <section id="id15">
-<h3>3. Define CBR-FoX Techniques<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
+<h3>3. Define CBR-FoX Techniques<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id42">
-<div class="code-block-caption"><span class="caption-text">Set up CBR-FoX technique using CCI distance metric</span><a class="headerlink" href="#id42" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Set up CBR-FoX technique using CCI distance metric</span><a class="headerlink" href="#id42" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">techniques</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">cbr_fox</span><span class="o">.</span><span class="n">cbr_fox</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">cci_distance</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;punishedSumFactor&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
 <span class="p">]</span>
@@ -407,9 +411,9 @@
 </div>
 </section>
 <section id="id16">
-<h3>4. Build and Train the CBR-FoX Model<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
+<h3>4. Build and Train the CBR-FoX Model<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id43">
-<div class="code-block-caption"><span class="caption-text">Initialize the builder and train the model on rainfall data</span><a class="headerlink" href="#id43" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Initialize the builder and train the model on rainfall data</span><a class="headerlink" href="#id43" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">cbr_fox_builder</span><span class="p">(</span><span class="n">techniques</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_windows</span> <span class="o">=</span> <span class="n">training_windows</span><span class="p">,</span>
       <span class="n">target_training_windows</span> <span class="o">=</span> <span class="n">target_training_windows</span><span class="p">,</span>
@@ -419,18 +423,18 @@
 </div>
 </section>
 <section id="id17">
-<h3>5. Make Predictions<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h3>
+<h3>5. Make Predictions<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id44">
-<div class="code-block-caption"><span class="caption-text">Generate rainfall predictions with 3 forecast cases</span><a class="headerlink" href="#id44" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Generate rainfall predictions with 3 forecast cases</span><a class="headerlink" href="#id44" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">prediction</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id18">
-<h3>6. Visualize Results<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h3>
+<h3>6. Visualize Results<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
 <div class="literal-block-wrapper docutils container" id="id45">
-<div class="code-block-caption"><span class="caption-text">Plot rainfall predictions with line and scatter markers</span><a class="headerlink" href="#id45" title="Permalink to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Plot rainfall predictions with line and scatter markers</span><a class="headerlink" href="#id45" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">visualize_pyplot</span><span class="p">(</span>
     <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;--d&#39;</span><span class="p">,</span>
     <span class="n">legend</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -443,7 +447,7 @@
 </pre></div>
 </div>
 </div>
-<img alt="Rainfall Prediction output figure" class="align-center" src="_static/rainfall_prediction_image.png" />
+<img alt="Rainfall Prediction output figure" class="align-center" src="_images/rainfall_prediction_image.png" />
 </section>
 </section>
 </section>

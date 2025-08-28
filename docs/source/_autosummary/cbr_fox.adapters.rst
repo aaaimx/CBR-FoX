@@ -4,28 +4,10 @@
 .. automodule:: cbr_fox.adapters
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
 .. rubric:: Modules
 
 .. autosummary::
    :toctree:
    :recursive:
 
-   cbr_fox.adapters.sktime_interface
-
+   sktime_interface
