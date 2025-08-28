@@ -11,7 +11,12 @@ CBR-FoX is a Python library designed to provide case-based reasoning explanation
 
 ## Installation
 
-To install CBR-FoX and its dependencies, follow these steps:
+To install CBR-FoX and its dependencies, either clone the repository or use the pip package manager:
+
+### Install via PyPI
+```bash
+pip install CBR-FoX
+```
 
 ### Install via GitHub
 ```bash
@@ -78,6 +83,7 @@ The following diagram represents the core classes and their interactions within 
 
 ---
 For further details, check out the official documentation: [CBR-FoX on Read the Docs](https://cbr-fox.readthedocs.io/en/latest/overview.html).
+
 
 
 
