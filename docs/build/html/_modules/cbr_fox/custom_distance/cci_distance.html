@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>cbr_fox.custom_distance.cci_distance &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=78028f55" />
 
@@ -46,6 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../features.html">Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules.html">CBR FoX API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
 </ul>
 
         </div>
@@ -73,14 +74,14 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cbr_fox.custom_distance.cci_distance</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">..adapters</span> <span class="kn">import</span> <span class="n">sktime_interface</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">sktime_interface</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="cci_distance">
 <a class="viewcode-back" href="../../../cbr_fox.custom_distance.html#cbr_fox.custom_distance.cci_distance.cci_distance">[docs]</a>
-<span class="k">def</span> <span class="nf">cci_distance</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">punishedSumFactor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cci_distance</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">punishedSumFactor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute a combined correlation and distance measure using Pearson correlation</span>
 <span class="sd">    and Euclidean distance, with a normalization factor applied.</span>

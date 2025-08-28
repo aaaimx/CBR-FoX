@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>cbr_fox.builder.cbr_fox_builder &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=78028f55" />
 
@@ -46,6 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../features.html">Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules.html">CBR FoX API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
 </ul>
 
         </div>
@@ -73,10 +74,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cbr_fox.builder.cbr_fox_builder</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">plot_utils</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_utils</span>
+
 <div class="viewcode-block" id="cbr_fox_builder">
 <a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder">[docs]</a>
-<span class="k">class</span> <span class="nc">cbr_fox_builder</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">cbr_fox_builder</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for managing multiple techniques used in case-based reasoning (CBR) with cbr_fox objects.</span>
 
@@ -84,8 +86,9 @@
 <span class="sd">    It provides an interface for visualizing the results of each technique using `plot_utils`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techniques</span><span class="p">):</span>
-
+<div class="viewcode-block" id="cbr_fox_builder.__init__">
+<a class="viewcode-back" href="../../../_autosummary/cbr_fox.builder.cbr_fox_builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techniques</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the cbr_fox_builder with a list of techniques.</span>
 
@@ -95,19 +98,63 @@
 <span class="sd">            A list of techniques (objects) that contain a metric (string or callable) for CBR.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: cbr_fox_builder.__init__ called&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: techniques parameter type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">techniques</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: techniques parameter value: </span><span class="si">{</span><span class="n">techniques</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: techniques length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">techniques</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nb">hasattr</span><span class="p">(</span><span class="n">techniques</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;__len__&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;No length&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="c1"># Store techniques as a dictionary, where the key is the technique name and the value is the cbr_fox object</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">techniques</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Starting loop through techniques...&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">techniques</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Processing item </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Item type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Check if item has metric attribute</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;metric&#39;</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Item has &#39;metric&#39; attribute&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: item.metric = </span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: item.metric type = </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Metric is string: &#39;</span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Adding to dict with key: &#39;</span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Successfully added string metric to dict&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Metric is not string, checking for __name__ attribute...&quot;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">):</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: item.metric.__name__ = </span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">key</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="o">.</span><span class="vm">__name__</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Adding to dict with key: &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Successfully added callable metric to dict&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: ERROR - item.metric has no __name__ attribute!&quot;</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: item.metric attributes: </span><span class="si">{</span><span class="nb">dir</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="c1"># Try to get a name anyway</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Using string representation as key: &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+                        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Failed to create key from metric: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="k">raise</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">metric</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: ERROR - Item has no &#39;metric&#39; attribute!&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Item attributes: </span><span class="si">{</span><span class="nb">dir</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Technique object </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2"> has no &#39;metric&#39; attribute&quot;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: Final techniques_dict keys: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEBUG: cbr_fox_builder.__init__ completed successfully&quot;</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="cbr_fox_builder.explain_all_techniques">
 <a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.explain_all_techniques">[docs]</a>
-    <span class="k">def</span> <span class="nf">explain_all_techniques</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">):</span>
-
+    <span class="k">def</span><span class="w"> </span><span class="nf">explain_all_techniques</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explains all techniques provided by the user.</span>
 
@@ -128,13 +175,12 @@
 <span class="sd">            The number of cases used in the explanation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="cbr_fox_builder.fit">
 <a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.fit">[docs]</a>
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">):</span>
-
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fits all techniques to the provided training data.</span>
 
@@ -150,18 +196,13 @@
 <span class="sd">        forecasted_window: ndarray</span>
 <span class="sd">            The forecasted window for the CBR model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-
-
-
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="cbr_fox_builder.predict">
 <a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.predict">[docs]</a>
-    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">):</span>
-
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Makes predictions using all the techniques stored in `techniques_dict`.</span>
 
@@ -175,11 +216,11 @@
 <span class="sd">            The number of cases to predict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">techniques_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span></div>
 
 
     <span class="c1"># Override __getitem__ to allow dictionary-like access</span>
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">technique_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">technique_name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allows dictionary-like access to retrieve a specific technique.</span>
 
@@ -206,13 +247,9 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Technique &#39;</span><span class="si">{</span><span class="n">technique_name</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span>
 
-    <span class="c1">#def visualize_pyplot(self,**kwargs):</span>
-
-    <span class="c1">#    return [plot_utils.visualize_pyplot(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]</span>
-
 <div class="viewcode-block" id="cbr_fox_builder.visualize_pyplot">
 <a class="viewcode-back" href="../../../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.visualize_pyplot">[docs]</a>
-    <span class="k">def</span> <span class="nf">visualize_pyplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;individual&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visualize_pyplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;individual&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Visualizes the techniques using `plot_utils.visualize_pyplot`.</span>
 

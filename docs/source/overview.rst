@@ -15,10 +15,4 @@ Why Use CBR-Fox?
 - **Easy Visualization**: Includes tools for plotting similarity results.
 - **Flexible & Extensible**: Designed for scalability and integration with existing ML pipelines.
 
-Example Use Cases
------------------
-- **Medical Diagnosis**: Retrieve similar past cases based on patient history.
-- **Fraud Detection**: Compare new transactions against previous fraudulent patterns.
-- **Predictive Maintenance**: Identify potential equipment failures by analyzing historical sensor data.
-
 Continue to **Features** for a detailed breakdown.

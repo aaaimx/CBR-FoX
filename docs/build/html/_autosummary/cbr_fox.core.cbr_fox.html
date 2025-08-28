@@ -74,16 +74,66 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-cbr_fox.core.cbr_fox">
-<span id="cbr-fox-core-cbr-fox"></span><h1>cbr_fox.core.cbr_fox<a class="headerlink" href="#module-cbr_fox.core.cbr_fox" title="Link to this heading"></a></h1>
-<p class="rubric">Classes</p>
+  <section id="cbr-fox-core-cbr-fox">
+<h1>cbr_fox.core.cbr_fox<a class="headerlink" href="#cbr-fox-core-cbr-fox" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cbr_fox.core.</span></span><span class="sig-name descname"><span class="pre">cbr_fox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dtw'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothness_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cbr_fox/core/cbr_fox.html#cbr_fox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox" title="Link to this definition"></a></dt>
+<dd><p>Core class to perform calculations and analysis at technique-level depth.</p>
+<p>This class is used to preprocess the provided input data for performing correlation and find the best cases. Its}
+functionality follows classic AI library guidelines and standards such as scikit-learn and keras.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric</strong> (<em>str</em><em> or </em><em>callable</em><em>, </em><em>optional</em>) – The metric to use for correlation (default is “dtw”).</p></li>
+<li><p><strong>smoothness_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – The smoothness factor for preprocessing (default is 0.2).</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional keyword arguments for customization.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cbr_fox.core.cbr_fox.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothness_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cbr_fox/core/cbr_fox.html#cbr_fox.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.core.cbr_fox.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the cbr_fox class with specified parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dtw'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothness_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cbr_fox/core/cbr_fox.html#cbr_fox.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>Initializes the cbr_fox class with specified parameters.
+:param metric:
+:param smoothness_factor:
+:param kwargs:</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox" title="cbr_fox.core.cbr_fox.cbr_fox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cbr_fox</span></code></a>([metric, smoothness_factor, kwargs])</p></td>
-<td><p>Core class to perform calculations and analysis at technique-level depth.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.__init__" title="cbr_fox.core.cbr_fox.cbr_fox.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([metric, smoothness_factor, kwargs])</p></td>
+<td><p>Initializes the cbr_fox class with specified parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis" title="cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_analysis</span></code></a>(indexes, ...)</p></td>
+<td><p>Compute analysis results and store them in a record array for reporting and visualization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis_combined" title="cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis_combined"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_analysis_combined</span></code></a>(...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.fit" title="cbr_fox.core.cbr_fox.cbr_fox.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(training_windows, ...)</p></td>
+<td><p>Perform correlation analysis and identify cases based on the provided data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report" title="cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_analysis_report</span></code></a>()</p></td>
+<td><p>Access the analysis report containing the best cases based on the analysis.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report_combined" title="cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report_combined"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_analysis_report_combined</span></code></a>()</p></td>
+<td><p>Access the combined analysis report containing the best cases based on the combined analysis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.predict" title="cbr_fox.core.cbr_fox.cbr_fox.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(prediction, num_cases, mode)</p></td>
+<td><p>Perform analysis to identify the best cases based on the provided prediction.</p></td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
 </section>
 
 

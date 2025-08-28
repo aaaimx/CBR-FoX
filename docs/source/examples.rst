@@ -345,3 +345,91 @@ Rainfall Prediction
    :align: center
    :alt: Rainfall Prediction output figure
 
+Weather Forecasting
+--------------------
+
+1. Import Necessary Libraries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Import modules and dependencies for weather forecasting
+
+   from cbr_fox.core import cbr_fox
+   from cbr_fox.builder import cbr_fox_builder
+   from cbr_fox.custom_distance import cci_distance
+   import numpy as np
+   import os
+
+2. Load the Saved Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Load preprocessed weather forecasting dataset
+
+   data = np.load(os.path.join(os.path.dirname(__file__), "weather_forecasting.npz"))
+
+3. Retrieve Variables from the Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Extract input features and target variables
+
+   training_windows = data['training_windows']
+   forecasted_window = data['forecasted_window']
+   target_training_windows = data['target_training_windows']
+   windowsLen = data['windowsLen'].item()
+   componentsLen = data['componentsLen'].item()
+   windowLen = data['windowLen'].item()
+   prediction = data['prediction']
+
+4. Define CBR-FoX Techniques
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Define CBR-FoX technique with CCI distance
+
+   techniques = [
+       cbr_fox.cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor": 0.5})
+       # cbr_fox.cbr_fox(metric="edr"),
+       # cbr_fox.cbr_fox(metric="dtw"),
+       # cbr_fox.cbr_fox(metric="twe")
+   ]
+
+5. Build and Train the CBR-FoX Model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Train model using weather forecasting dataset
+
+   p = cbr_fox_builder(techniques)
+   p.fit(training_windows = training_windows,
+         target_training_windows = target_training_windows,
+         forecasted_window = forecasted_window)
+
+6. Make Predictions
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Generate predictions for weather data
+
+   p.predict(prediction = prediction, num_cases=3)
+
+7. Visualize Results
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Visualize weather forecast results with custom scatter plot
+
+   p.visualize_pyplot(
+       fmt = '--o',
+       legend = True,
+       scatter_params = {"s": 80, "c": "red", "alpha": 0.6, "edgecolors": "black"},
+       xtick_rotation = 30,
+       title="Weather Forecasting",
+       xlabel="Slices",
+       ylabel="Metric Value"
+   )
+
+.. image:: _static/weather_forecasting_image.png
+   :align: center
+   :alt: Weather forecasting output figure

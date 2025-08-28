@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>cbr_fox.adapters.sktime_interface &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=78028f55" />
 
@@ -46,6 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../features.html">Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules.html">CBR FoX API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
 </ul>
 
         </div>
@@ -73,16 +74,16 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cbr_fox.adapters.sktime_interface</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">sktime.distances</span> <span class="kn">import</span> <span class="n">distance</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sktime.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
 
 
 <div class="viewcode-block" id="pearson">
 <a class="viewcode-back" href="../../../cbr_fox.adapters.html#cbr_fox.adapters.sktime_interface.pearson">[docs]</a>
-<span class="k">def</span> <span class="nf">pearson</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pearson</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the Pearson correlation coefficient between two arrays.</span>
 
@@ -116,7 +117,7 @@
 
 <div class="viewcode-block" id="distance_sktime_interface">
 <a class="viewcode-back" href="../../../cbr_fox.adapters.html#cbr_fox.adapters.sktime_interface.distance_sktime_interface">[docs]</a>
-<span class="k">def</span> <span class="nf">distance_sktime_interface</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{}):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">distance_sktime_interface</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{}):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Interface for computing pairwise distances using a custom or built-in sktime metric.</span>
 
@@ -162,7 +163,7 @@
 
 <div class="viewcode-block" id="compute_distance_interface">
 <a class="viewcode-back" href="../../../cbr_fox.adapters.html#cbr_fox.adapters.sktime_interface.compute_distance_interface">[docs]</a>
-<span class="k">def</span> <span class="nf">compute_distance_interface</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_distance_interface</span><span class="p">(</span><span class="n">input_data_dictionary</span><span class="p">,</span>
                                <span class="n">metric</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="nb">float</span><span class="p">]],</span>
                                <span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>

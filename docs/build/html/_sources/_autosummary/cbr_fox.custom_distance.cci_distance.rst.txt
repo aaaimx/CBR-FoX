@@ -1,12 +1,6 @@
-cbr\_fox.custom\_distance.cci\_distance
+﻿cbr\_fox.custom\_distance.cci\_distance
 =======================================
 
-.. automodule:: cbr_fox.custom_distance.cci_distance
+.. currentmodule:: cbr_fox.custom_distance
 
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      cci_distance
-   
+.. autofunction:: cci_distance

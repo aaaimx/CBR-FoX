@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>cbr_fox.core.cbr_fox &mdash; Case-Based Reasoning Fox 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=78028f55" />
 
@@ -46,6 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../features.html">Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules.html">CBR FoX API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
 </ul>
 
         </div>
@@ -73,21 +74,21 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cbr_fox.core.cbr_fox</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
-<span class="kn">from</span> <span class="nn">statsmodels.nonparametric.smoothers_lowess</span> <span class="kn">import</span> <span class="n">lowess</span>
-<span class="kn">from</span> <span class="nn">..adapters</span> <span class="kn">import</span> <span class="n">sktime_interface</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">signal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.nonparametric.smoothers_lowess</span><span class="w"> </span><span class="kn">import</span> <span class="n">lowess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">sktime_interface</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
 
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="cbr_fox">
 <a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox">[docs]</a>
-<span class="k">class</span> <span class="nc">cbr_fox</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">cbr_fox</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Core class to perform calculations and analysis at technique-level depth.</span>
 
@@ -111,7 +112,7 @@
 
 <div class="viewcode-block" id="cbr_fox.__init__">
 <a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="p">:</span> <span class="nb">str</span> <span class="ow">or</span> <span class="nb">callable</span> <span class="o">=</span> <span class="s2">&quot;dtw&quot;</span><span class="p">,</span> <span class="n">smoothness_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="p">:</span> <span class="nb">str</span> <span class="ow">or</span> <span class="nb">callable</span> <span class="o">=</span> <span class="s2">&quot;dtw&quot;</span><span class="p">,</span> <span class="n">smoothness_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the cbr_fox class with specified parameters.</span>
 <span class="sd">        Parameters</span>
@@ -147,7 +148,7 @@
 
 
     <span class="c1"># FIRST PRIVATE LAYER</span>
-    <span class="k">def</span> <span class="nf">_smoothe_correlation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_smoothe_correlation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Smooth the correlation using the lowess method from scipy, applying the specified smoothness factor.</span>
 
@@ -163,7 +164,7 @@
         <span class="k">return</span> <span class="n">lowess</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__correlation_per_window</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__correlation_per_window</span><span class="p">)),</span>
                       <span class="bp">self</span><span class="o">.</span><span class="n">smoothness_factor</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_identify_valleys_peaks_indexes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_identify_valleys_peaks_indexes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">         Identify the indices of valleys and peaks in the smoothed correlation array.</span>
 
@@ -180,7 +181,7 @@
         <span class="k">return</span> <span class="n">signal</span><span class="o">.</span><span class="n">argrelextrema</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> \
             <span class="n">signal</span><span class="o">.</span><span class="n">argrelextrema</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">greater</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_retreive_concave_convex_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">windows_len</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_retreive_concave_convex_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">windows_len</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extract concave and convex segments from the smoothed correlation array.</span>
 
@@ -205,7 +206,7 @@
             <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">windows_len</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_correlation</span><span class="p">))),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">peak_index</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_retreive_original_indexes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_retreive_original_indexes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve original data point indexes from concave and convex segments.</span>
 
@@ -225,7 +226,7 @@
 
 <div class="viewcode-block" id="cbr_fox.calculate_analysis">
 <a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculate_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexes</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexes</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute analysis results and store them in a record array for reporting and visualization.</span>
 
@@ -261,9 +262,9 @@
 
 <div class="viewcode-block" id="cbr_fox.calculate_analysis_combined">
 <a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis_combined">[docs]</a>
-    <span class="k">def</span> <span class="nf">calculate_analysis_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_analysis_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
         <span class="c1"># SECOND PRIVATE LAYER</span>
-        <span class="k">def</span> <span class="nf">weighted_average</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">weighted_average</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Calculate the weighted average of a set of values based on the provided weights.</span>
 
@@ -310,7 +311,7 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_preprocess_input_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_preprocess_input_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gather basic data information from the input variables.</span>
 
@@ -344,7 +345,7 @@
 
         <span class="k">return</span> <span class="n">input_data_dictionary</span>
 
-    <span class="k">def</span> <span class="nf">_compute_correlation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_correlation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the correlation between training windows and target windows.</span>
@@ -374,7 +375,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">correlation_per_window</span> <span class="o">=</span> <span class="n">correlation_per_window</span>
         <span class="k">return</span> <span class="n">correlation_per_window</span>
 
-    <span class="k">def</span> <span class="nf">_compute_cbr_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_cbr_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the analysis to smoothe, extract, retrieve indexes from the non-smoothed correlation</span>
 
@@ -402,7 +403,7 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Recuperando índices originales de correlación&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_retreive_original_indexes</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_compute_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">          Calculate statistics based on identified cases.</span>
@@ -447,7 +448,7 @@
 
 <div class="viewcode-block" id="cbr_fox.fit">
 <a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.fit">[docs]</a>
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform correlation analysis and identify cases based on the provided data.</span>
@@ -485,7 +486,7 @@
 
 <div class="viewcode-block" id="cbr_fox.predict">
 <a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.predict">[docs]</a>
-    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform analysis to identify the best cases based on the provided prediction.</span>
 
@@ -516,7 +517,7 @@
 
 <div class="viewcode-block" id="cbr_fox.get_analysis_report">
 <a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_analysis_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_analysis_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Access the analysis report containing the best cases based on the analysis.</span>
 
@@ -530,7 +531,7 @@
 
 <div class="viewcode-block" id="cbr_fox.get_analysis_report_combined">
 <a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report_combined">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_analysis_report_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_analysis_report_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Access the combined analysis report containing the best cases based on the combined analysis.</span>
 

@@ -74,16 +74,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-cbr_fox.builder.cbr_fox_builder">
-<span id="cbr-fox-builder-cbr-fox-builder"></span><h1>cbr_fox.builder.cbr_fox_builder<a class="headerlink" href="#module-cbr_fox.builder.cbr_fox_builder" title="Link to this heading"></a></h1>
-<p class="rubric">Classes</p>
+  <section id="cbr-fox-builder-cbr-fox-builder">
+<h1>cbr_fox.builder.cbr_fox_builder<a class="headerlink" href="#cbr-fox-builder-cbr-fox-builder" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cbr_fox.builder.cbr_fox_builder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cbr_fox.builder.</span></span><span class="sig-name descname"><span class="pre">cbr_fox_builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">techniques</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cbr_fox/builder/cbr_fox_builder.html#cbr_fox_builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.builder.cbr_fox_builder" title="Link to this definition"></a></dt>
+<dd><p>A class for managing multiple techniques used in case-based reasoning (CBR) with cbr_fox objects.</p>
+<p>This class allows the user to store different techniques, explain them, fit them to training data, and make predictions.
+It provides an interface for visualizing the results of each technique using <cite>plot_utils</cite>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cbr_fox.builder.cbr_fox_builder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">techniques</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cbr_fox/builder/cbr_fox_builder.html#cbr_fox_builder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cbr_fox.builder.cbr_fox_builder.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes the cbr_fox_builder with a list of techniques.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>techniques</strong> (<em>list</em>) – A list of techniques (objects) that contain a metric (string or callable) for CBR.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder" title="cbr_fox.builder.cbr_fox_builder.cbr_fox_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cbr_fox_builder</span></code></a>(techniques)</p></td>
-<td><p>A class for managing multiple techniques used in case-based reasoning (CBR) with cbr_fox objects.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(techniques)</p></td>
+<td><p>Initializes the cbr_fox_builder with a list of techniques.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.explain_all_techniques" title="cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.explain_all_techniques"><code class="xref py py-obj docutils literal notranslate"><span class="pre">explain_all_techniques</span></code></a>(training_windows, ...)</p></td>
+<td><p>Explains all techniques provided by the user.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.fit" title="cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(training_windows, ...)</p></td>
+<td><p>Fits all techniques to the provided training data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.predict" title="cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(prediction, num_cases[, mode])</p></td>
+<td><p>Makes predictions using all the techniques stored in <cite>techniques_dict</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cbr_fox.builder.html#cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.visualize_pyplot" title="cbr_fox.builder.cbr_fox_builder.cbr_fox_builder.visualize_pyplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_pyplot</span></code></a>([mode])</p></td>
+<td><p>Visualizes the techniques using <cite>plot_utils.visualize_pyplot</cite>.</p></td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
 </section>
 
 

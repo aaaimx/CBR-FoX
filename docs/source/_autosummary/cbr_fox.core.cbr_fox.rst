@@ -1,12 +1,28 @@
-cbr\_fox.core.cbr\_fox
+﻿cbr\_fox.core.cbr\_fox
 ======================
 
-.. automodule:: cbr_fox.core.cbr_fox
+.. currentmodule:: cbr_fox.core
+
+.. autoclass:: cbr_fox
 
    
-   .. rubric:: Classes
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
 
    .. autosummary::
    
-      cbr_fox
+      ~cbr_fox.__init__
+      ~cbr_fox.calculate_analysis
+      ~cbr_fox.calculate_analysis_combined
+      ~cbr_fox.fit
+      ~cbr_fox.get_analysis_report
+      ~cbr_fox.get_analysis_report_combined
+      ~cbr_fox.predict
+   
+   
+
+   
+   
    
