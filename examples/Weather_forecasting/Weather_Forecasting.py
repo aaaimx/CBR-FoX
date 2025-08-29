@@ -2,9 +2,9 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from src.cbr_fox.core import cbr_fox
-from src.cbr_fox.builder.cbr_fox_builder import cbr_fox_builder
-from src.cbr_fox.custom_distance.cci_distance import cci_distance
+from cbr_fox.core import cbr_fox
+from cbr_fox.builder import cbr_fox_builder
+from cbr_fox.custom_distance import cci_distance
 
 #from src.core import cbr_fox
 #from src.builder import cbr_fox_builder
