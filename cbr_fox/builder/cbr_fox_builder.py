@@ -1,4 +1,5 @@
 from ..utils import plot_utils
+
 class cbr_fox_builder:
     """
     A class for managing multiple techniques used in case-based reasoning (CBR) with cbr_fox objects.
@@ -8,7 +9,6 @@ class cbr_fox_builder:
     """
 
     def __init__(self, techniques):
-
         """
         Initializes the cbr_fox_builder with a list of techniques.
 
@@ -18,17 +18,60 @@ class cbr_fox_builder:
             A list of techniques (objects) that contain a metric (string or callable) for CBR.
         """
 
+        print(f"DEBUG: cbr_fox_builder.__init__ called")
+        print(f"DEBUG: techniques parameter type: {type(techniques)}")
+        print(f"DEBUG: techniques parameter value: {techniques}")
+        print(f"DEBUG: techniques length: {len(techniques) if hasattr(techniques, '__len__') else 'No length'}")
 
         # Store techniques as a dictionary, where the key is the technique name and the value is the cbr_fox object
         self.techniques_dict = dict()
-        for item in techniques:
-            if isinstance(item.metric, str) :
-                self.techniques_dict[item.metric] = item
+
+        print(f"DEBUG: Starting loop through techniques...")
+
+        for i, item in enumerate(techniques):
+            print(f"DEBUG: Processing item {i}: {item}")
+            print(f"DEBUG: Item type: {type(item)}")
+
+            # Check if item has metric attribute
+            if hasattr(item, 'metric'):
+                print(f"DEBUG: Item has 'metric' attribute")
+                print(f"DEBUG: item.metric = {item.metric}")
+                print(f"DEBUG: item.metric type = {type(item.metric)}")
+
+                if isinstance(item.metric, str):
+                    print(f"DEBUG: Metric is string: '{item.metric}'")
+                    print(f"DEBUG: Adding to dict with key: '{item.metric}'")
+                    self.techniques_dict[item.metric] = item
+                    print(f"DEBUG: Successfully added string metric to dict")
+                else:
+                    print(f"DEBUG: Metric is not string, checking for __name__ attribute...")
+
+                    if hasattr(item.metric, '__name__'):
+                        print(f"DEBUG: item.metric.__name__ = {item.metric.__name__}")
+                        key = item.metric.__name__
+                        print(f"DEBUG: Adding to dict with key: '{key}'")
+                        self.techniques_dict[key] = item
+                        print(f"DEBUG: Successfully added callable metric to dict")
+                    else:
+                        print(f"DEBUG: ERROR - item.metric has no __name__ attribute!")
+                        print(f"DEBUG: item.metric attributes: {dir(item.metric)}")
+                        # Try to get a name anyway
+                        try:
+                            key = str(item.metric)
+                            print(f"DEBUG: Using string representation as key: '{key}'")
+                            self.techniques_dict[key] = item
+                        except Exception as e:
+                            print(f"DEBUG: Failed to create key from metric: {e}")
+                            raise
             else:
-                self.techniques_dict[item.metric.__name__] = item
+                print(f"DEBUG: ERROR - Item has no 'metric' attribute!")
+                print(f"DEBUG: Item attributes: {dir(item)}")
+                raise AttributeError(f"Technique object {item} has no 'metric' attribute")
+
+        print(f"DEBUG: Final techniques_dict keys: {list(self.techniques_dict.keys())}")
+        print(f"DEBUG: cbr_fox_builder.__init__ completed successfully")
 
     def explain_all_techniques(self,  training_windows, target_training_windows, forecasted_window, prediction, num_cases):
-
         """
         Explains all techniques provided by the user.
 
@@ -49,10 +92,9 @@ class cbr_fox_builder:
             The number of cases used in the explanation.
         """
         for name in self.techniques_dict:
-                self.techniques_dict[name].explain(training_windows, target_training_windows, forecasted_window, prediction, num_cases)
+            self.techniques_dict[name].explain(training_windows, target_training_windows, forecasted_window, prediction, num_cases)
 
     def fit(self, training_windows, target_training_windows, forecasted_window):
-
         """
         Fits all techniques to the provided training data.
 
@@ -68,15 +110,10 @@ class cbr_fox_builder:
         forecasted_window: ndarray
             The forecasted window for the CBR model.
         """
-
-
-
-
         for name in self.techniques_dict:
             self.techniques_dict[name].fit(training_windows, target_training_windows, forecasted_window)
 
     def predict(self, prediction, num_cases, mode="simple"):
-
         """
         Makes predictions using all the techniques stored in `techniques_dict`.
 
@@ -90,7 +127,7 @@ class cbr_fox_builder:
             The number of cases to predict.
         """
         for name in self.techniques_dict:
-                self.techniques_dict[name].predict(prediction, num_cases, mode)
+            self.techniques_dict[name].predict(prediction, num_cases, mode)
 
     # Override __getitem__ to allow dictionary-like access
     def __getitem__(self, technique_name):
@@ -119,10 +156,6 @@ class cbr_fox_builder:
             return self.techniques_dict[technique_name]
         else:
             raise KeyError(f"Technique '{technique_name}' not found.")
-
-    #def visualize_pyplot(self,**kwargs):
-
-    #    return [plot_utils.visualize_pyplot(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]
 
     def visualize_pyplot(self, mode="individual", **kwargs):
         """
