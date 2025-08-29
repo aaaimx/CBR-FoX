@@ -1,6 +1,3 @@
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 from cbr_fox.core import cbr_fox
 from cbr_fox.builder import cbr_fox_builder
@@ -24,7 +21,7 @@ windowLen = data['windowLen'].item()
 prediction = data['prediction']
 
 techniques = [
-    cbr_fox.cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor": 0.5})
+    cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor": 0.5})
     #cbr_fox.cbr_fox(metric="edr"),
     #cbr_fox.cbr_fox(metric="dtw"),
     #cbr_fox.cbr_fox(metric="twe")

@@ -1,0 +1,33 @@
+# 1. Building System Configuration
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# 2. Project Information
+[project]
+name = "CBR-FoX"
+version = "0.2.0"
+description = "A case-based reasoning python library that aims to help researchers find similar cases according to an input case with a wide range of methods that can detect similarity based on the features of each time series"
+readme = "README.md"
+dynamic = ["dependencies"]
+#license = {file = "LICENSE"}
+requires-python = ">=3.7"
+
+# 3. Authors and Maintainers
+authors = [
+    { name = "Gerardo Pérez", email = "jerryperezperez@hotmail.com" },
+    { name = "Moisés Valdez", email = "moises.valdez.avila@gmail.com" }
+]
+maintainers = [
+    { name = "Gerardo Pérez", email = "jerryperezperez@hotmail.com" },
+    { name = "Moisés Valdez", email = "moises.valdez.avila@gmail.com" }
+]
+
+# 4. Important Project Links
+[project.urls]
+Documentation = "https://CBRFoX.readthedocs.io"
+Repository = "https://github.com/aaaimx/CBRFoX"
+
+# 5. setuptools
+[tool.setuptools]
+packages = {find = {}}

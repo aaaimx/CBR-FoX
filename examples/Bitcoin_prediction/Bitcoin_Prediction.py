@@ -1,11 +1,14 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from src.core import cbr_fox
-from src.builder.cbr_fox_builder import cbr_fox_builder
-from src.custom_distance.cci_distance import cci_distance
+from cbr_fox.core import cbr_fox
+from cbr_fox.builder import cbr_fox_builder
+from cbr_fox.custom_distance import cci_distance
 import numpy as np
 
 # Load the saved data
-data = np.load("Bitcoin_Prediction.npz")
+data = np.load(os.path.join(os.path.dirname(__file__), "Bitcoin_Prediction.npz"))
 
 # Retrieve each variable
 training_windows = data['training_windows']
@@ -17,10 +20,10 @@ windowLen = data['windowLen'].item()
 prediction = data['prediction']
 
 techniques = [
-    cbr_fox.cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor": 0.5})
-    #cbr_fox.cbr_fox(metric="edr"),
-    #cbr_fox.cbr_fox(metric="dtw"),
-    #cbr_fox.cbr_fox(metric="twe")
+    cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor": 0.5})
+    #cbr_fox(metric="edr"),
+    #cbr_fox(metric="dtw"),
+    #cbr_fox(metric="twe")
 ]
 p = cbr_fox_builder(techniques)
 p.fit(training_windows = training_windows, target_training_windows = target_training_windows, forecasted_window = forecasted_window)
@@ -37,4 +40,5 @@ p.visualize_pyplot(
     xlabel="x",
     ylabel="y"
 )
-
+import matplotlib.pyplot as plt
+plt.show()
