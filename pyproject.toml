@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "CBR-FoX"
-version = "1.0.3"
+version = "1.0.4"
 description = "A case-based reasoning python library that aims to help researchers find similar cases according to an input case with a wide range of methods that can detect similarity based on the features of each time series"
 readme = "README.md"
 requires-python = ">=3.7"
