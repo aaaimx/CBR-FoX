@@ -332,13 +332,13 @@ Rainfall Prediction
    :caption: Plot rainfall predictions with line and scatter markers
 
    p.visualize_pyplot(
-       fmt = '--d',
-       legend = False,
-       scatter_params={"s": 50},
-       xtick_rotation=50,
-       title="Precipitation Value",
-       xlabel="Day",
-       ylabel="Metric Value"
+      fmt = '-o',
+      plot_params = {"linewidth": .5,"alpha": 0.75,"markersize": 9,"markeredgecolor": "black"},
+      legend = False,
+      scatter_params = {"s": 45, "alpha": 0.5,"edgecolors": "black","marker":"s"},
+      title="Precipitation Value",
+      xlabel="Day",
+      ylabel="Metric Value"
    )
 
 .. image:: _static/rainfall_prediction_image.png
@@ -431,5 +431,177 @@ Weather Forecasting
    )
 
 .. image:: _static/weather_forecasting_image.png
+   :align: center
+   :alt: Weather forecasting output figure
+
+Power consumption Forecasting
+--------------------
+
+1. Import Necessary Libraries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Import modules and dependencies
+
+   from cbr_fox.core import cbr_fox
+   from cbr_fox.builder import cbr_fox_builder
+   from cbr_fox.custom_distance import cci_distance
+   import numpy as np
+   import os
+
+2. Load the Saved Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Load preprocessed Power Consumption dataset
+
+   data = np.load(os.path.join(os.path.dirname(__file__), "Power_consumption.npz"))
+
+3. Retrieve Variables from the Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Extract input features and target variables
+
+   training_windows = data['training_windows']
+   forecasted_window = data['forecasted_window']
+   target_training_windows = data['target_training_windows']
+   windowsLen = data['windowsLen'].item()
+   componentsLen = data['componentsLen'].item()
+   windowLen = data['windowLen'].item()
+   prediction = data['prediction']
+
+4. Define CBR-FoX Techniques
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Define CBR-FoX technique with CCI distance
+
+   techniques = [
+       cbr_fox.cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor": 0.5})
+   ]
+
+5. Build and Train the CBR-FoX Model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Train model using Power Consumption dataset
+
+   p = cbr_fox_builder(techniques)
+   p.fit(training_windows = training_windows,
+         target_training_windows = target_training_windows,
+         forecasted_window = forecasted_window)
+
+6. Make Predictions
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Generate predictions for Power consumption data
+
+   p.predict(prediction = prediction, num_cases=3)
+
+7. Visualize Results
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Visualize weather forecast results with custom scatter plot
+
+   p.visualize_pyplot(
+      fmt = '--d',
+      legend = False,
+      scatter_params={"s": 50},
+      xtick_rotation=50,
+      title="Power Consumption",
+      xlabel="Slice",
+      ylabel="Consumption (MW)"
+   )
+
+.. image:: _static/power_consumption_image_0.png
+   :align: center
+   :alt: Weather forecasting output figure
+
+Fraud Detection
+--------------------
+
+1. Import Necessary Libraries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Import modules and dependencies
+
+   from cbr_fox.core import cbr_fox
+   from cbr_fox.builder import cbr_fox_builder
+   from cbr_fox.custom_distance import cci_distance
+   import numpy as np
+   import os
+
+2. Load the Saved Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Load preprocessed Fraud Detection dataset
+
+   data = np.load(os.path.join(os.path.dirname(__file__), "Fraud_detection.npz"))
+
+3. Retrieve Variables from the Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Extract input features and target variables
+
+   training_windows = data['training_windows']
+   forecasted_window = data['forecasted_window']
+   target_training_windows = data['target_training_windows']
+   windowsLen = data['windowsLen'].item()
+   componentsLen = data['componentsLen'].item()
+   windowLen = data['windowLen'].item()
+   prediction = data['prediction']
+
+4. Define CBR-FoX Techniques
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Define CBR-FoX technique with CCI distance
+
+   techniques = [
+       cbr_fox.cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor": 0.6})
+   ]
+
+5. Build and Train the CBR-FoX Model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Train model using Fraud Detection dataset
+
+   p = cbr_fox_builder(techniques)
+   p.fit(training_windows = training_windows,
+         target_training_windows = target_training_windows,
+         forecasted_window = forecasted_window)
+
+6. Make Predictions
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Generate predictions for Fraud data
+
+   p.predict(prediction = prediction, num_cases=5)
+
+7. Visualize Results
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+   :caption: Visualize weather forecast results with custom scatter plot
+
+   p.visualize_pyplot(
+      fmt = '--d',
+      legend = False,
+      scatter_params={"s": 50},
+      xtick_rotation=50,
+      title="Fraud Detection",
+      xlabel="Slice",
+      ylabel="PCA Values"
+   )
+
+.. image:: _static/fraud_detection_image.png
    :align: center
    :alt: Weather forecasting output figure

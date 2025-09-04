@@ -87,7 +87,7 @@
 
 
 <div class="viewcode-block" id="cbr_fox">
-<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox">[docs]</a>
+<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">cbr_fox</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Core class to perform calculations and analysis at technique-level depth.</span>
@@ -111,7 +111,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="cbr_fox.__init__">
-<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="p">:</span> <span class="nb">str</span> <span class="ow">or</span> <span class="nb">callable</span> <span class="o">=</span> <span class="s2">&quot;dtw&quot;</span><span class="p">,</span> <span class="n">smoothness_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the cbr_fox class with specified parameters.</span>
@@ -225,7 +225,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">worst_windows_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">split</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">split</span> <span class="o">==</span> <span class="nb">min</span><span class="p">(</span><span class="n">split</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">]))</span>
 
 <div class="viewcode-block" id="cbr_fox.calculate_analysis">
-<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis">[docs]</a>
+<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.calculate_analysis">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexes</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute analysis results and store them in a record array for reporting and visualization.</span>
@@ -261,7 +261,7 @@
 
 
 <div class="viewcode-block" id="cbr_fox.calculate_analysis_combined">
-<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.calculate_analysis_combined">[docs]</a>
+<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.calculate_analysis_combined">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate_analysis_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data_dictionary</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
         <span class="c1"># SECOND PRIVATE LAYER</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">weighted_average</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
@@ -447,7 +447,7 @@
     <span class="c1"># PUBLIC METHODS. ALL THESE METHODS ARE PROVIDED FOR THE USER. Public layer</span>
 
 <div class="viewcode-block" id="cbr_fox.fit">
-<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.fit">[docs]</a>
+<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.fit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_windows</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target_training_windows</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">forecasted_window</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -485,7 +485,7 @@
 
 
 <div class="viewcode-block" id="cbr_fox.predict">
-<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.predict">[docs]</a>
+<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.predict">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform analysis to identify the best cases based on the provided prediction.</span>
@@ -516,7 +516,7 @@
 
 
 <div class="viewcode-block" id="cbr_fox.get_analysis_report">
-<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report">[docs]</a>
+<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.get_analysis_report">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_analysis_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Access the analysis report containing the best cases based on the analysis.</span>
@@ -530,7 +530,7 @@
 
 
 <div class="viewcode-block" id="cbr_fox.get_analysis_report_combined">
-<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.cbr_fox.get_analysis_report_combined">[docs]</a>
+<a class="viewcode-back" href="../../../cbr_fox.core.html#cbr_fox.core.cbr_fox.get_analysis_report_combined">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_analysis_report_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Access the combined analysis report containing the best cases based on the combined analysis.</span>
