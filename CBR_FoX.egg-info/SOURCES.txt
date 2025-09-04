@@ -3,6 +3,7 @@ pyproject.toml
 CBR_FoX.egg-info/PKG-INFO
 CBR_FoX.egg-info/SOURCES.txt
 CBR_FoX.egg-info/dependency_links.txt
+CBR_FoX.egg-info/requires.txt
 CBR_FoX.egg-info/top_level.txt
 cbr_fox/__init__.py
 cbr_fox/adapters/__init__.py
@@ -17,7 +18,9 @@ cbr_fox/utils/__init__.py
 cbr_fox/utils/plot_utils.py
 docs/source/conf.py
 examples/Bitcoin_prediction/Bitcoin_Prediction.py
+examples/Fraud_detection/Fraud_detection.py
+examples/Power_consumption/Power_consumption.py
 examples/Rainfall_prediction/Rainfall_prediction.py
 examples/Romania_Power_Usage_Analysis_2016_2020_CBR-FoX/Romania_Power_Usage_Analysis_2016_2020_CBR-FoX.py
 examples/Walmart_sales_prediction/Walmart_Sales_Prediction.py
-examples/Weather_forecasting/Weather_Forecasting.py
+examples/Weather_forecasting/Weather_forecasting.py
