@@ -3,7 +3,6 @@
 [![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: EUPL 1.2](https://img.shields.io/badge/License-EUPL%201.2-blue.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12)
 [![Documentation Status](https://readthedocs.org/projects/cbr-fox/badge/?version=latest)](https://cbr-fox.readthedocs.io/en/latest/?badge=latest)
-[![Build Status](https://github.com/aaaimx/CBR-FoX/workflows/CI/badge.svg)](https://github.com/aaaimx/CBR-FoX/actions)
 [![Coverage](https://codecov.io/gh/aaaimx/CBR-FoX/branch/main/graph/badge.svg)](https://codecov.io/gh/aaaimx/CBR-FoX)
 [![PyPI version](https://badge.fury.io/py/cbr-fox.svg)](https://badge.fury.io/py/cbr-fox)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
@@ -12,7 +11,7 @@ CBR-FoX is a Python library designed to provide case-based reasoning explanation
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#-features)
 - [Installation](#-installation)
@@ -29,7 +28,7 @@ CBR-FoX is a Python library designed to provide case-based reasoning explanation
 
 ---
 
-## ✨ Features
+## Features
 
 - **Case-Based Reasoning (CBR) Implementation**: Utilizes case-based reasoning to enhance explainability in time series predictions
 - **Multiple Distance Metrics**: DTW, Euclidean, Pearson correlation, and custom CCI metric
@@ -42,7 +41,7 @@ CBR-FoX is a Python library designed to provide case-based reasoning explanation
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### Install via PyPI
 
@@ -84,7 +83,7 @@ docker run cbr_fox python scripts/examples/reproduce_all_figures.py
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```python
 from cbr_fox.core import cbr_fox
@@ -116,7 +115,7 @@ plot_utils.visualize_pyplot(cbr)
 
 ---
 
-## 🔄 Usage Workflow
+## Usage Workflow
 
 Follow these steps to use CBR-FoX in your projects:
 
@@ -193,7 +192,7 @@ builder.visualize_pyplot(
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Full documentation is available at [https://cbr-fox.readthedocs.io](https://cbr-fox.readthedocs.io/en/latest/overview.html)
 
@@ -219,7 +218,7 @@ python scripts/examples/figure_5_metric_comparison.py
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### Library Usage Diagram
 The following diagram illustrates the typical workflow of CBR-FoX, from retrieving AI model outputs to generating visual explanations:
@@ -260,7 +259,7 @@ For detailed architecture documentation including type hints and interface speci
 
 ---
 
-## 📖 Citation
+## Citation
 
 If you use CBR-FoX in your research, please cite:
 
@@ -268,14 +267,16 @@ If you use CBR-FoX in your research, please cite:
 
 ```bibtex
 @article{cbr_fox2025,
-  title={CBR-FoX: A Python Framework for Case-Based Reasoning in Time Series Forecasting},
-  author={[Your Name]},
-  journal={SoftwareX},
-  year={2025},
-  volume={[TBD]},
-  pages={[TBD]},
-  doi={[TBD]},
-  url={https://github.com/aaaimx/CBR-FoX}
+  title   = {CBR-FoX: A Python Framework for Case-Based Reasoning in Time Series Forecasting},
+  author  = {Gerardo A. Pérez-Pérez and
+             Moisés F. Valdez-Ávila and
+             Mauricio G. Orozco-del-Castillo and
+             Carlos Bermejo-Sabbagh and
+             Juan A. Recio-García},
+  journal = {SoftwareX},
+  year    = {2025},
+  pages   = {15},
+  url     = {https://github.com/aaaimx/CBR-FoX}
 }
 ```
 
@@ -291,7 +292,11 @@ For the software itself, please also cite:
 
 ```bibtex
 @software{cbr_fox_software,
-  author = {[Your Name]},
+    author  = {Gerardo A. Pérez-Pérez and
+             Moisés F. Valdez-Ávila and
+             Mauricio G. Orozco-del-Castillo and
+             Carlos Bermejo-Sabbagh and
+             Juan A. Recio-García},
   title = {CBR-FoX: Case-Based Reasoning for Time Series Forecasting},
   year = {2025},
   version = {1.0.1},
@@ -398,7 +403,7 @@ Special thanks to:
 
 ---
 
-**Maintained by**: [Your Name/Team]  
-**Institution**: [Your Institution]  
+**Maintained by**: [AAAIMX](https://aaaimx.github.io)  
+**Institution**: [AAAIMX - Advanced Analytics and AI Research Group](https://aaaimx.github.io)  
 **Repository**: [https://github.com/aaaimx/CBR-FoX](https://github.com/aaaimx/CBR-FoX)  
-**Last Updated**: January 2025
+**Last Updated**: October 2025
