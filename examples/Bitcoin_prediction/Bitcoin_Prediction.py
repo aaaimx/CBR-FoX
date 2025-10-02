@@ -36,7 +36,7 @@ p.visualize_pyplot(
     fmt = '--d',
     scatter_params={"s": 50},
     xtick_rotation=50,
-    title="Title",
+    title="Bitcoin Price Prediction",
     xlabel="x",
     ylabel="y"
 )

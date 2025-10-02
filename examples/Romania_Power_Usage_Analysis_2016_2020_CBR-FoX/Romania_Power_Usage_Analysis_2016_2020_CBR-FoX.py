@@ -33,9 +33,9 @@ p.visualize_pyplot(
     fmt = '--d',
     scatter_params={"s": 50},
     xtick_rotation=50,
-    title="nombre",
-    xlabel="x",
-    ylabel="y"
+    title="Power Usage Predictions in Romania (2016-2020)",
+    xlabel="Time (Months)",
+    ylabel="Power Usage (kWh)"
 )
 import matplotlib.pyplot as plt
 plt.show()

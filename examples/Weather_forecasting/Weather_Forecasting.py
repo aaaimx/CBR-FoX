@@ -1,11 +1,10 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 from cbr_fox.core import cbr_fox
 from cbr_fox.builder import cbr_fox_builder
 from cbr_fox.custom_distance import cci_distance
-
-#from src.core import cbr_fox
-#from src.builder import cbr_fox_builder
-#from src.custom_distance.cci_distance import cci_distance
 import numpy as np
 
 # Load the saved data
@@ -34,7 +33,7 @@ p.predict(prediction = prediction,num_cases=3)
 p.visualize_pyplot(
     fmt = '--o',
     legend = True,
-    scatter_params = {"s": 80, "c": "red", "alpha": 0.6, "edgecolors": "black"},
+    scatter_params = {"s": 80, "alpha": 0.6, "edgecolors": "black"},
     xtick_rotation = 30,
     title="Weather Forecasting",
     xlabel="Slices",
