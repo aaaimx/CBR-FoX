@@ -38,6 +38,7 @@ pure_eval==0.2.3
 Pygments==2.19.2
 pyparsing==3.2.3
 python-dateutil==2.9.0.post0
+pytest==8.4.2
 pytz==2025.2
 pyzmq==27.0.2
 scikit-base==0.12.5
