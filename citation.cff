@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "CBR-FoX: A Case-Based Reasoning software tool for auditing time series predictions"
+version: 1.0.1
+date-released: "[TBD]"
+abstract: "A Python library implementing Case-Based Reasoning (CBR) for time series analysis and forecasting, with support for multiple distance metrics, explainability, and visualization tools."
+authors:
+  - family-names: "Pérez-Pérez"
+    given-names: "Gerardo A."
+    affiliation: "a"
+  - family-names: "Valdez-Ávila"
+    given-names: "Moisés F."
+    affiliation: "a"
+  - family-names: "Orozco-del-Castillo"
+    given-names: "Mauricio G."
+    affiliation: "a"
+  - family-names: "Bermejo-Sabbagh"
+    given-names: "Carlos"
+    affiliation: "a"
+  - family-names: "Recio-García"
+    given-names: "Juan A."
+    affiliation: "a"
+repository-code: "https://github.com/aaaimx/CBR-FoX"
+url: "https://cbr-fox.readthedocs.io"
+license: EUPL-1.2
+keywords:
+  - case-based reasoning
+  - time series
+  - forecasting
+  - machine learning
+  - explainable AI
+  - Python
+preferred-citation:
+  type: article
+  title: "CBR-FoX: A Case-Based Reasoning software tool for auditing time series predictions"
+  authors:
+    - family-names: "Pérez-Pérez"
+      given-names: "Gerardo A."
+    - family-names: "Valdez-Ávila"
+      given-names: "Moisés F."
+    - family-names: "Orozco-del-Castillo"
+      given-names: "Mauricio G."
+    - family-names: "Bermejo-Sabbagh"
+      given-names: "Carlos"
+    - family-names: "Recio-García"
+      given-names: "Juan A."
+  journal: "SoftwareX"
+  year: 2025
+  volume: "[TBD]"
+  issue: "[TBD]"
+  pages: "[TBD]"
+  doi: "[TBD after acceptance]"
