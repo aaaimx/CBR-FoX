@@ -47,12 +47,12 @@ class cbr_fox:
         self.kwargs = kwargs
         # Variables for results
         self.smoothed_correlation = None
-        self.analysisReport = None
-        self.analysisReport_combined = None
+        self.analysis_report = None
+        self.analysis_report_combined = None
         self.best_windows_index = list()
         self.worst_windows_index = list()
-        self.bestMAE = list()
-        self.worstMAE = list()
+        self.best_mae = list()
+        self.worst_mae = list()
         # Private variables for easy access by private methods
         self.correlation_per_window = None
         self.input_data_dictionary = None
@@ -118,10 +118,10 @@ class cbr_fox:
             This method does not return a value but stores the calculated concave and convex segments
             in the private attributes `self.concaveSegments` and `self.convexSegments`, respectively.
         """
-        self.concaveSegments = np.split(
+        self.concave_segments = np.split(
             np.transpose(np.array((np.arange(windows_len), self.smoothed_correlation))),
             self.valley_index)
-        self.convexSegments = np.split(
+        self.convex_segments = np.split(
             np.transpose(np.array((np.arange(windows_len), self.smoothed_correlation))),
             self.peak_index)
 
@@ -138,9 +138,9 @@ class cbr_fox:
         None
             The extracted indexes are stored in private attributes for further analysis.
         """
-        for split in tqdm(self.concaveSegments, desc="Segmentos cóncavos"):
+        for split in tqdm(self.concave_segments, desc="Segmentos cóncavos"):
             self.best_windows_index.append(int(split[np.where(split == max(split[:, 1]))[0][0], 0]))
-        for split in tqdm(self.convexSegments, desc="Segmentos convexos"):
+        for split in tqdm(self.convex_segments, desc="Segmentos convexos"):
             self.worst_windows_index.append(int(split[np.where(split == min(split[:, 1]))[0][0], 0]))
 
     def calculate_analysis(self, indexes, input_data_dictionary):
@@ -354,8 +354,8 @@ class cbr_fox:
         self.records_array_combined = self.calculate_analysis_combined(input_data_dictionary, mode)
 
         logging.info("Generando reporte de análisis")
-        self.analysisReport = pd.DataFrame(data=pd.DataFrame.from_records(self.records_array))
-        self.analysisReport_combined = pd.DataFrame(data=pd.DataFrame.from_records(self.records_array_combined))
+        self.analysis_report = pd.DataFrame(data=pd.DataFrame.from_records(self.records_array))
+        self.analysis_report_combined = pd.DataFrame(data=pd.DataFrame.from_records(self.records_array_combined))
 
     # PUBLIC METHODS. ALL THESE METHODS ARE PROVIDED FOR THE USER. Public layer
 
@@ -431,7 +431,7 @@ class cbr_fox:
         pandas.DataFrame
             A DataFrame containing the best cases and their respective information based on the analysis.
         """
-        return self.analysisReport
+        return self.analysis_report
 
     def get_analysis_report_combined(self):
         """
@@ -442,4 +442,4 @@ class cbr_fox:
         pandas.DataFrame
             A DataFrame containing the combined best cases and their respective information based on the analysis.
         """
-        return self.analysisReport_combined
+        return self.analysis_report_combined

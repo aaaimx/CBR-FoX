@@ -3,7 +3,7 @@ from ..adapters import sktime_interface
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-def cci_distance(input_data_dictionary, punishedSumFactor):
+def cci_distance(input_data_dictionary, punished_sum_factor):
     """
     Compute a combined correlation and distance measure using Pearson correlation
     and Euclidean distance, with a normalization factor applied.
@@ -19,7 +19,7 @@ def cci_distance(input_data_dictionary, punishedSumFactor):
         A dictionary containing processed input data, including training windows,
         target training windows, and any other necessary components for distance
         calculations.
-    punishedSumFactor : float
+    punished_sum_factor : float
         A factor applied to the sum of the normalized correlation to adjust the
         final computed correlation.
 
@@ -30,20 +30,20 @@ def cci_distance(input_data_dictionary, punishedSumFactor):
         correlation per window.
     """
 
-    logging.info("Aplicando Correlación de Pearson")
-    pearsonCorrelation = sktime_interface.distance_sktime_interface(input_data_dictionary, sktime_interface.pearson)
+    logging.info("Applyiing Pearson Correlation")
+    pearson_correlation = sktime_interface.distance_sktime_interface(input_data_dictionary, sktime_interface.pearson)
 
-    logging.info("Aplicando Correlación Euclidiana")
-    euclideanDistance = sktime_interface.distance_sktime_interface(input_data_dictionary, "euclidean")
-    normalizedEuclideanDistance = (euclideanDistance - np.amin(euclideanDistance, axis=0)) / (np.amax(euclideanDistance, axis=0)-np.amin(euclideanDistance, axis=0))
+    logging.info("Applying Euclidean Distance")
+    euclidean_distance = sktime_interface.distance_sktime_interface(input_data_dictionary, "euclidean")
+    normalized_euclidean_distance = (euclidean_distance - np.amin(euclidean_distance, axis=0)) / (np.amax(euclidean_distance, axis=0)-np.amin(euclidean_distance, axis=0))
 
-    normalizedCorrelation = (.5 + (pearsonCorrelation - 2 * normalizedEuclideanDistance + 1) / 4)
+    normalized_correlation = (.5 + (pearson_correlation - 2 * normalized_euclidean_distance + 1) / 4)
 
     # To overcome 1-d arrays
 
-    correlationPerWindow = np.sum(((normalizedCorrelation + punishedSumFactor) ** 2), axis=1)
-    if (correlationPerWindow.ndim == 1):
-        correlationPerWindow = correlationPerWindow.reshape(-1, 1)
+    correlation_per_window = np.sum(((normalized_correlation + punished_sum_factor) ** 2), axis=1)
+    if (correlation_per_window.ndim == 1):
+        correlation_per_window = correlation_per_window.reshape(-1, 1)
     # Applying scale
-    correlationPerWindow = (correlationPerWindow - min(correlationPerWindow)) / (max(correlationPerWindow)-min(correlationPerWindow))
-    return correlationPerWindow
+    correlation_per_window = (correlation_per_window - min(correlation_per_window)) / (max(correlation_per_window)-min(correlation_per_window))
+    return correlation_per_window
