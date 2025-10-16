@@ -6,7 +6,7 @@ import os
 import sys
 
 # Add your project’s src folder to sys.path
-sys.path.insert(0, os.path.abspath('../../cbr_fox'))
+sys.path.insert(0, os.path.abspath('../../src'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
