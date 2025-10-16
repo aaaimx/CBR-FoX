@@ -22,3 +22,5 @@ Use this documentation to learn about installation, features, and available modu
    installation
    modules
    examples
+   performance_analysis
+   troubleshooting
