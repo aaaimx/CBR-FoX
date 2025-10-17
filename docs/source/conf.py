@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('../../src'))
 project = 'Case-Based Reasoning Fox'
 copyright = '2025, AAAIMX'
 author = 'Pérez Pérez Gerardo Arturo, Valdez Ávila Moisés Fernando, Orozco del Castillo Mauricio Gabriel, Recio García Juan Antonio'
-release = '0.0.1'
+release = '1.0.5'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
