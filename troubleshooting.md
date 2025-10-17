@@ -1,6 +1,6 @@
 # Troubleshooting
 
-This section covers common issues and their solutions when working with CBR-FoX.
+This file covers common issues and their solutions when working with CBR-FoX.
 
 ## Installation Issues
 
