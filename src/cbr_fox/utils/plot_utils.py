@@ -60,8 +60,10 @@ def visualize_pyplot(cbr_fox_instance, **kwargs):
     """
 
     figs_axes = []
+    fig_size = kwargs.get("fig_size", (20, 12))
+    plt.rcParams['figure.figsize'] = fig_size
     n_windows = kwargs.get("n_windows", len(cbr_fox_instance.best_windows_index))
-    # Un plot por cada componente
+    # One plot per component
     for i in range(cbr_fox_instance.input_data_dictionary["target_training_windows"].shape[1]):
         fig, ax = plt.subplots()
 
@@ -112,7 +114,7 @@ def visualize_pyplot(cbr_fox_instance, **kwargs):
             ax.legend()
 
         figs_axes.append((fig, ax))
-        fig.show()
+        plt.show()
     return figs_axes
 
 
@@ -173,8 +175,9 @@ def visualize_combined_pyplot(cbr_fox_instance, **kwargs):
     - This function requires a valid `cbr_fox_instance` containing precomputed records.
     """
     figs_axes = []
-
-    # Un plot por cada componente
+    fig_size = kwargs.get("fig_size", (8, 5))
+    plt.rcParams['figure.figsize'] = fig_size
+    # One plot per component
     for i in range(cbr_fox_instance.input_data_dictionary["target_training_windows"].shape[1]):
         fig, ax = plt.subplots()
 
@@ -220,5 +223,150 @@ def visualize_combined_pyplot(cbr_fox_instance, **kwargs):
             ax.legend()
 
         figs_axes.append((fig, ax))
-        fig.show()
+        plt.show()
     return figs_axes
+
+def visualize_correlation_per_window(cbr_fox_instance, **kwargs):
+    """
+    Plot correlation values per window using Matplotlib.
+
+    Produce a simple line plot of the CBR system's correlation values for each
+    window to help assess how well the forecasted window matches training windows.
+
+    Parameters
+    ----------
+    cbr_fox_instance : object
+        CBR system instance containing an array-like attribute
+        `correlation_per_window` with correlation values for each window.
+
+    kwargs : keyword arguments
+        Optional plotting parameters:
+        - fig_size : tuple, optional
+            Figure size in inches (width, height). Default used elsewhere is (20, 12).
+        - correlation_label : str, optional
+            Label for the primary correlation line.
+        - fmt : str, optional
+            Matplotlib format string to pass to the second plot invocation.
+        - plot_params : dict, optional
+            Additional keyword arguments forwarded to ax.plot for the second plot.
+        - xlim, ylim : tuple, optional
+            Axis limits passed to ax.set_xlim / ax.set_ylim.
+        - xtick_rotation : int, optional
+            Rotation angle for x-axis tick labels.
+        - title, xlabel, ylabel : str, optional
+            Axis and title text.
+        - legend : bool, optional
+            Whether to enable the legend.
+
+    Returns
+    -------
+    tuple
+        (fig, ax) Matplotlib figure and axis objects for further customization or saving.
+    """
+    fig, ax = plt.subplots()
+    fig_size = kwargs.get("fig_size", (8, 5))
+    fig.set_size_inches(fig_size)
+    ax.plot(
+        np.arange(len(cbr_fox_instance.correlation_per_window)),
+        cbr_fox_instance.correlation_per_window,
+        label=kwargs.get("correlation_label", "Correlation per Window")
+    )
+    plot_args = [
+        np.arange(cbr_fox_instance.correlation_per_window.shape[0]),
+        cbr_fox_instance.correlation_per_window
+    ]
+    if "fmt" in kwargs:
+        plot_args.append(kwargs["fmt"])
+    ax.plot(
+        *plot_args,
+        **kwargs.get("plot_params", {}),
+        label=kwargs.get("label","Correlation per Window")
+    )
+    plt.show()
+    return fig, ax
+
+
+def visualize_smoothed_correlation(cbr_fox_instance, **kwargs):
+    """
+    Visualize a smoothed correlation series with annotated peak and valley points.
+    Parameters
+    ----------
+    cbr_fox_instance : object
+        An object that must provide the following attributes:
+          - smoothed_correlation : 1D array-like (numpy array, list, pandas Series)
+              Smoothed correlation values to plot.
+          - peak_index : int or array-like of int
+              Index or indices of peak point(s) in `smoothed_correlation` to mark.
+          - valley_index : int or array-like of int
+              Index or indices of valley point(s) in `smoothed_correlation` to mark.
+    kwargs : dict, optional
+        Optional plotting parameters (all keys are optional):
+          - fig_size : tuple(float, float)
+              Figure size in inches. Default: (20, 12).
+          - smoothed_label : str
+              Label used for the primary line plot of `smoothed_correlation`.
+              Default: "Smoothed Correlation per Window".
+          - fmt : str
+              Matplotlib format string for the second line plot (e.g. 'r--').
+          - plot_params : dict
+              Additional keyword arguments forwarded to ax.plot for the second plot.
+          - label : str
+              Label for the second plot (default falls back to smoothed_label).
+          - peak_params : dict
+              Keyword arguments forwarded to ax.scatter when marking peak(s).
+          - valley_params : dict
+              Keyword arguments forwarded to ax.scatter when marking valley(s).
+    Returns
+    -------
+    tuple
+        (fig, ax) where `fig` is the matplotlib.figure.Figure and `ax` is the
+        matplotlib.axes.Axes created by the function.
+    Behavior
+    --------
+    - Creates a new matplotlib figure and axis, applies `fig_size` if provided,
+      plots the smoothed correlation as a line, optionally re-plots it with a
+      format string and additional plot parameters, and marks the peak and valley
+      points using scatter.
+    - Calls plt.show() before returning the (fig, ax) pair.
+    - Expects that `smoothed_correlation` supports len() and indexing with
+      `peak_index` / `valley_index`. If those indices are lists/arrays, multiple
+      points are marked.
+    Notes
+    -----
+    - This function assumes `matplotlib.pyplot` is available as plt and `numpy` as np
+      in the module scope.
+    - No validation is performed on the provided indices or arrays; callers should
+      ensure indices are within bounds.
+    """
+
+    fig, ax = plt.subplots()
+    fig_size = kwargs.get("fig_size", (20, 12))
+    fig.set_size_inches(fig_size)
+    ax.plot(
+        np.arange(len(cbr_fox_instance.smoothed_correlation)),
+        cbr_fox_instance.smoothed_correlation,
+        label=kwargs.get("smoothed_label", "Smoothed Correlation per Window")
+    )
+    plot_args = [
+        np.arange(cbr_fox_instance.smoothed_correlation.shape[0]),
+        cbr_fox_instance.smoothed_correlation
+    ]
+    if "fmt" in kwargs:
+        plot_args.append(kwargs["fmt"])
+    ax.plot(
+        *plot_args,
+        **kwargs.get("plot_params", {}),
+        label=kwargs.get("label","Smoothed Correlation per Window")
+    )
+    ax.scatter(
+                cbr_fox_instance.peak_index,
+                cbr_fox_instance.smoothed_correlation[cbr_fox_instance.peak_index],
+                **kwargs.get("peak_params", {})
+            )
+    ax.scatter(
+                cbr_fox_instance.valley_index,
+                cbr_fox_instance.smoothed_correlation[cbr_fox_instance.valley_index],
+                **kwargs.get("valley_params", {})
+            )
+    plt.show()
+    return fig, ax
