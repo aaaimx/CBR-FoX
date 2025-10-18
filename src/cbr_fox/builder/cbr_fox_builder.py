@@ -178,6 +178,10 @@ class cbr_fox_builder:
             return [plot_utils.visualize_pyplot(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]
         elif mode == "combined":
             return [plot_utils.visualize_combined_pyplot(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]
+        elif mode == "correlation":
+            return [plot_utils.visualize_correlation_per_window(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]
+        elif mode == "smoothed":
+            return [plot_utils.visualize_smoothed_correlation(self.techniques_dict[name], **kwargs) for name in self.techniques_dict]
         else:
-            print(f"Mode '{mode}' not supported. Use 'individual' or 'combined'.")
+            print(f"Mode '{mode}' not supported. Use 'individual', 'combined', 'correlation' or 'smoothed'.")
             return []
