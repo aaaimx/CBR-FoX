@@ -20,7 +20,7 @@ windowLen = data['windowLen'].item()
 prediction = data['prediction']
 
 techniques = [
-    cbr_fox(metric=cci_distance, kwargs={"punishedSumFactor": 0.5})
+    cbr_fox(metric=cci_distance, kwargs={"punished_sum_factor": 0.5})
     #cbr_fox.cbr_fox(metric="edr"),
     #cbr_fox.cbr_fox(metric="dtw"),
     #cbr_fox.cbr_fox(metric="twe")
