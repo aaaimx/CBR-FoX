@@ -282,6 +282,16 @@ def visualize_correlation_per_window(cbr_fox_instance, **kwargs):
         **kwargs.get("plot_params", {}),
         label=kwargs.get("label","Correlation per Window")
     )
+    ax.set_xlim(kwargs.get("xlim"))
+    ax.set_ylim(kwargs.get("ylim"))
+    plt.xticks(rotation=kwargs.get("xtick_rotation", 0), ha=kwargs.get("xtick_ha", 'right'))
+    ax.set_title(kwargs.get("title", "Correlation per Window"))
+    ax.set_xlabel(kwargs.get("xlabel", "Axis X"))
+    ax.set_ylabel(kwargs.get("ylabel", "Axis Y"))
+
+    if kwargs.get("legend", True):
+        ax.legend()
+
     plt.show()
     return fig, ax
 
@@ -368,5 +378,14 @@ def visualize_smoothed_correlation(cbr_fox_instance, **kwargs):
                 cbr_fox_instance.smoothed_correlation[cbr_fox_instance.valley_index],
                 **kwargs.get("valley_params", {})
             )
+    ax.set_xlim(kwargs.get("xlim"))
+    ax.set_ylim(kwargs.get("ylim"))
+    plt.xticks(rotation=kwargs.get("xtick_rotation", 0), ha=kwargs.get("xtick_ha", 'center'))
+    ax.set_title(kwargs.get("title", "Smoothed Correlation per Window"))
+    ax.set_xlabel(kwargs.get("xlabel", "Axis X"))
+    ax.set_ylabel(kwargs.get("ylabel", "Axis Y"))
+
+    if kwargs.get("legend", True):
+        ax.legend()
     plt.show()
     return fig, ax
