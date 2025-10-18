@@ -1,0 +1,20 @@
+name: cbr_fox
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy>=2.0
+  - pandas>=2.0
+  - scikit-learn>=1.3
+  - sktime>=0.38.5
+  - scipy>=1.10
+  - statsmodels>=0.14
+  - matplotlib>=3.7
+  - tqdm>=4.65
+  - plotly>=6.0
+  - joblib>=1.3
+  - pip
+  - pip:
+      - -e .
+      - -r requirements.txt
